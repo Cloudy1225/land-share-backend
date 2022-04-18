@@ -26,9 +26,10 @@ public class UserController {
         this.logger = LoggerFactory.getLogger(UserController.class);
     }
 
+    // 登录或注册
     @GetMapping("/loginOrRegister")
     public Response userLoginOrRegister(@RequestHeader("X-WX-OPENID") String openid) {
-        logger.info("/my/loginOrRegister get request, openid: {}", openid);
+        logger.info("/my/loginOrRegister get request, 目的：登录或注册，用户openid: {}", openid);
 
         User user = userService.findByOpenid(openid);
         /*if (user != null) {
@@ -45,5 +46,41 @@ public class UserController {
         newUser.setOpenid(openid);
         userService.createUser(newUser);
         return Response.buildSuccess("自动注册，直接登录");
+    }
+
+    // 注销用户
+    @GetMapping("/deleteUser")
+    public Response userDelete(@RequestHeader("X-WX-OPENID") String openid) {
+        logger.info("/my/deleteUser get request, 目的：注销用户，用户openid: {}", openid);
+
+        int hasUser = userService.deleteUser(openid);
+        if(hasUser == 0){
+            return Response.buildFailed("10000", "用户不存在");
+        }
+        return Response.buildSuccess("用户已注销");
+    }
+
+    // 实名认证
+    @PostMapping("/realName")
+    public Response userRealName(@RequestBody UserVO userVO, @RequestHeader("X-WX-OPENID") String openid){
+        logger.info("/my/realName get request, 目的：实名，用户openid: {}", openid);
+
+        User userPO = new User();
+        BeanUtils.copyProperties(userVO, userPO);
+        userPO.setOpenid(openid); // Body中不携带openid，要从Header中获取
+        userService.realName(userPO);
+        return Response.buildSuccess("用户已实名");
+    }
+
+    // 获取实名信息
+    @GetMapping("/getUserInfo")
+    public Response getUserInfo(@RequestHeader("X-WX-OPENID") String openid){
+        logger.info("/my/getUserInfo get request, 目的：获取实名信息，用户openid: {}", openid);
+
+        User user = userService.findByOpenid(openid);
+        System.out.println(user);
+        UserVO userVO = new UserVO();
+        BeanUtils.copyProperties(user, userVO);
+        return Response.buildSuccess(userVO);
     }
 }

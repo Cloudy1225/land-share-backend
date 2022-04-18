@@ -28,4 +28,14 @@ public class UserServiceImpl implements UserService {
         return userDao.selectByOpenid(openid);
     }
 
+    @Override
+    public int deleteUser(String openid) {
+        return userDao.deleteUser(openid);
+    }
+
+    @Override
+    public int realName(User user) {
+        return userDao.updateUser(user);
+    }
+
 }

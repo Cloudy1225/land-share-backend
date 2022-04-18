@@ -36,7 +36,7 @@
 }
 ```
 
-微信小程序中```wx.cloud.callContainer``中的header自动携带了上述信息
+微信小程序中``wx.cloud.callContainer``中的header自动携带了上述信息
 
 #### 响应
 
@@ -58,7 +58,7 @@
 
 #### 调用示例
 
-微信小程序版：见前端
+微信小程序版：见前端代码
 
 本地测试版：利用Postman或ApiPost
 
@@ -70,7 +70,115 @@
 
 
 
+### ```GET /my/deleteUser```
 
+用户注销
+
+#### 请求
+
+自己用Postman、ApiPost等工具测试的话要在header里携带这项信息
+
+```json
+{
+    "X-WX-OPENID": "xxxxxx"
+}
+```
+
+微信小程序中``wx.cloud.callContainer``中的header自动携带了上述信息
+
+#### 响应
+
+```json
+{
+    "code": "00000",
+    "msg": "Success",
+    "result": "用户已注销"
+}
+```
+
+```json
+{
+    "code": "10000",
+    "msg": "用户不存在",
+    "result": null
+}
+```
+
+
+
+### ```POST /my/realName```
+
+用户实名 / 更改实名信息
+
+#### 请求
+
+header
+
+自己用Postman、ApiPost等工具测试的话要在header里携带这项信息
+
+```json
+{
+    "X-WX-OPENID": "xxxxxx"
+}
+```
+
+微信小程序中``wx.cloud.callContainer``中的header自动携带了上述信息
+
+body：注意**Content-Type为application/json**，而不是 multipart/form-data
+
+```json
+{
+    "username": "刘云辉",
+    "telenumber": "183****2634",
+    "idnumber": "340***20021225****"
+}
+```
+
+#### 响应
+
+```json
+{
+	"code": "00000",
+	"msg": "Success",
+	"result": "用户已实名"
+}
+```
+
+
+
+### ```GET /my/getUserInfo```
+
+获取用户信息，不包括openid和收藏信息
+
+#### 请求
+
+header
+
+自己用Postman、ApiPost等工具测试的话要在header里携带这项信息
+
+```json
+{
+    "X-WX-OPENID": "xxxxxx"
+}
+```
+
+微信小程序中``wx.cloud.callContainer``中的header自动携带了上述信息
+
+#### 响应
+
+```json
+{
+	"code": "00000",
+	"msg": "Success",
+	"result": {
+		"uid": 4,
+		"telenumber": "183****2634",
+		"username": "刘云辉",
+		"idnumber": "340***20021225****",
+		"role": "2"
+	}
+}
+```
 
 
 

@@ -17,7 +17,7 @@ public class UserVO {
     /**
      * 小程序自动生成的用户id
      */
-    private String openid;
+    // private String openid;
 
     /**
      * 用户手机号
@@ -37,7 +37,7 @@ public class UserVO {
     /**
      * 我的收藏
      */
-    private String collection;
+    // private String collection;
 
     /**
      * 用户身份

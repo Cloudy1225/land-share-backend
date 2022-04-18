@@ -11,7 +11,7 @@
         <id property="uid" column="uid" />
 
         <!-- 定义普通属性 -->
-        <result property="openid" column="opendid" />
+        <result property="openid" column="openid" />
         <result property="telenumber" column="telenumber" />
         <result property="username" column="username" />
         <result property="idnumber" column="idnumber" />
@@ -26,8 +26,19 @@
     </insert>
 
     <select id = "selectByOpenid" parameterType="java.lang.String" resultMap="User">
-        select * from UserInformation where `openid` = #{openid}
+        select * from UserInformation where openid = #{openid}
     </select>
 
+    <delete id="deleteUser" parameterType="java.lang.String">
+        DELETE
+        FROM userinformation
+        WHERE openid=#{openid}
+    </delete>
+
+    <update id="updateUser" parameterType="com.tencent.wxcloudrun.model.po.User">
+        UPDATE userinformation
+        SET telenumber=#{telenumber}, username=#{username}, idnumber=#{idnumber}, role=2
+        WHERE openid=#{openid}
+    </update>
 
 </mapper>

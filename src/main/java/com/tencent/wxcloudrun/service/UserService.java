@@ -10,4 +10,9 @@ public interface UserService {
     // 通过openid查询用户
     User findByOpenid(String openid);
 
+    // 注销用户
+    int deleteUser(String openid);
+
+    // 完成实名
+    int realName(User user);
 }

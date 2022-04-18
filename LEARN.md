@@ -35,5 +35,12 @@ spring项目中我们经常使用到spring的一个注解@Autowired，这个注�
 
 
 
+@Param
 
+首先明确这个注解是为SQL语句中参数赋值而服务的。
+
+      @Param的作用就是给参数命名，比如在mapper里面某方法A（int id），当添加注解后A（@Param("userId") int id），也就是说外部想要取出传入的id值，只需要取它的参数名userId就可以了。将参数值传如SQL语句中，通过#{userId}进行取值给SQL的参数赋值。
+------------------------------------------------
+版权声明：本文为CSDN博主「CodingLJ」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/Sunshineoe/article/details/114697944
 
