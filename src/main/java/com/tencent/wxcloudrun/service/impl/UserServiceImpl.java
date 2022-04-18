@@ -20,12 +20,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int createUser(User user){
-       return userDao.addUser(user);
+       return userDao.insertUser(user);
     }
 
     @Override
     public User findByOpenid(String openid) {
-        return userDao.findByOpenid(openid);
+        return userDao.selectByOpenid(openid);
     }
 
 }

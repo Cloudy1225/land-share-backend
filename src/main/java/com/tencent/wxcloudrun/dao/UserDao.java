@@ -11,8 +11,8 @@ import org.springframework.stereotype.Repository;
 public interface UserDao {
 
     // 增加用户
-    int addUser(User user); // 返回插入的行数，感觉可以为void
+    int insertUser(User user); // 返回插入的行数，感觉可以为void
 
     // 通过openid查询用户
-    User findByOpenid(String openid);
+    User selectByOpenid(String openid);
 }

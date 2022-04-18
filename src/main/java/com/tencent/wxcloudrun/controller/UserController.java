@@ -23,7 +23,7 @@ public class UserController {
     @Autowired //自动注入Service对象
     public UserController(UserService userService){
         this.userService = userService;
-        this.logger = LoggerFactory.getLogger(CounterController.class);
+        this.logger = LoggerFactory.getLogger(UserController.class);
     }
 
     @GetMapping("/loginOrRegister")
