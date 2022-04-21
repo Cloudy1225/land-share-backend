@@ -13,6 +13,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+
 @RestController // REST形式，返回json等，不返回整个页面
 @RequestMapping("/my")
 public class UserController {
@@ -26,17 +28,26 @@ public class UserController {
         this.logger = LoggerFactory.getLogger(UserController.class);
     }
 
-    // 登录或注册
+    /**
+     * 登录或注册
+     * @param openid
+     * @return 用户角色
+     */
     @GetMapping("/loginOrRegister")
     public Response userLoginOrRegister(@RequestHeader("X-WX-OPENID") String openid) {
         logger.info("/my/loginOrRegister get request, 目的：登录或注册，用户openid: {}", openid);
 
         User user = userService.findByOpenid(openid);
-        /*if (user != null) {
-            throw new MyServiceException("A0000", "用户名已存在");
-        }*/
+        HashMap<String, Character> role = new HashMap<>();
         if(user != null){
-            return Response.buildSuccess("用户已存在，直接登录");
+            role.put("role", user.getRole());
+            String msg = null;
+            if(user.getRole() == '1'){
+                msg = "未实名用户，直接登录";
+            }else {
+                msg = "已实名用户，直接登录";
+            }
+            return Response.buildSuccess(msg, role);
         }
         /*UserVO userVO = new UserVO();
         userVO.setOpenid(openid);
@@ -45,7 +56,8 @@ public class UserController {
         User newUser = new User();
         newUser.setOpenid(openid);
         userService.createUser(newUser);
-        return Response.buildSuccess("自动注册，直接登录");
+        role.put("role", '1');
+        return Response.buildSuccess("自动注册，直接登录", role);
     }
 
     // 注销用户

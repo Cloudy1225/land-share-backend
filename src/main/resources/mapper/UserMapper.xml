@@ -31,12 +31,12 @@
 
     <delete id="deleteUser" parameterType="java.lang.String">
         DELETE
-        FROM userinformation
+        FROM UserInformation
         WHERE openid=#{openid}
     </delete>
 
     <update id="updateUser" parameterType="com.tencent.wxcloudrun.model.po.User">
-        UPDATE userinformation
+        UPDATE UserInformation
         SET telenumber=#{telenumber}, username=#{username}, idnumber=#{idnumber}, role=2
         WHERE openid=#{openid}
     </update>
