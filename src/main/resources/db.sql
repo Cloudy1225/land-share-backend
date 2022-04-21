@@ -13,6 +13,10 @@ CREATE TABLE `UserInformation` (
     `username` varchar(9) NULL, # 真实姓名
     `idnumber` char(18) NULL, # 身份证号
     `collection` varchar(10) NULL, # 我的收藏
-    `role` char(1) NOT NULL DEFAULT '0', # 用户权限
+    `role` char(1) NOT NULL DEFAULT '1', # 用户权限
     PRIMARY KEY (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8; # InnoDB支持外键等
+
+ALTER TABLE `UserInformation` ALTER COLUMN `role` DROP DEFAULT ; # 如果你的用户信息表role的默认值为'1'就不需要执行下面两句
+
+ALTER TABLE `UserInformation` ALTER COLUMN `role` SET DEFAULT '1';
