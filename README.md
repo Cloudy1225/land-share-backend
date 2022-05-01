@@ -40,14 +40,15 @@
 
 #### 响应
 
-会返回用户角色1 或 2
+会返回用户角色1 或 2，已经角色信息
 
 ```json
 {
 	"code": "00000",
 	"msg": "未实名用户，直接登录",
 	"result": {
-		"role": "1"
+		"role": "1",
+        "telenumber": null
 	}
 }
 ```
@@ -57,10 +58,24 @@
 	"code": "00000",
 	"msg": "已实名用户，直接登录",
 	"result": {
-		"role": "2"
+		"role": "2",
+        "telenumber": "18355442634"
 	}
 }
 ```
+
+```json
+{
+	"code": "00000",
+	"msg": "自动注册，直接登录",
+	"result": {
+		"role": "1",
+        "telenumber": n
+	}
+}
+```
+
+
 
 #### 调用示例
 
@@ -97,14 +112,14 @@
 ```json
 {
     "code": "00000",
-    "msg": "Success",
-    "result": "用户已注销"
+    "msg": "用户已注销",
+    "result": null
 }
 ```
 
 ```json
 {
-    "code": "10000",
+    "code": "10001",
     "msg": "用户不存在",
     "result": null
 }
@@ -145,8 +160,8 @@ body：注意**Content-Type为application/json**，而不是 multipart/form-data
 ```json
 {
 	"code": "00000",
-	"msg": "Success",
-	"result": "用户已实名"
+	"msg": "用户已实名",
+	"result": null
 }
 ```
 
@@ -175,7 +190,7 @@ header
 ```json
 {
 	"code": "00000",
-	"msg": "Success",
+	"msg": "实名信息获取成功",
 	"result": {
 		"uid": 4,
 		"telenumber": "183****2634",
@@ -183,6 +198,64 @@ header
 		"idnumber": "340***20021225****",
 		"role": "2"
 	}
+}
+```
+
+
+
+### ```POST /landPost/createLandPost```
+
+用户发布土地
+
+#### 请求
+
+header
+
+自己用Postman、ApiPost等工具测试的话要在header里携带这项信息
+
+```json
+{
+    "X-WX-OPENID": "xxxxxx"
+}
+```
+
+微信小程序中``wx.cloud.callContainer``中的header自动携带了上述信息
+
+body：注意**Content-Type为application/json**，而不是 multipart/form-data
+
+```json
+{
+    landType: "耕地/水田",
+    transferType: "出租",
+    area: 14.5,
+    transferTime: 5,
+    price: 10000,
+    address: "安徽省淮南市凤台县",
+    longtitude: "118.238",
+    latitude: 30.223,
+    description: "非常nice",
+    pictureFileID:"fgshjfj.jpg|ehfhsjf.png",
+    videoFileID: "lyhlyh.mp4",
+    warrantsFileID: "warrantsFileID.png",
+    telenumber: "18355442634"
+}
+```
+
+#### 响应
+
+```json
+{
+	"code": "00000",
+	"msg": "土地信息已上传，待审核",
+	"result": null
+}
+```
+
+```json
+{
+	"code": "10002",
+	"msg": "土地信息不完整",
+	"result": null
 }
 ```
 

@@ -17,13 +17,15 @@ public class Response {
         this.msg = msg;
     }
 
-    public static Response buildSuccess(Object result) {
-        return new Response("00000", "Success", result);
-    }
+//    public static Response buildSuccess(Object result) {
+//        return new Response("00000", "Success", result);
+//    }
 
     public static Response buildSuccess(String msg, Object result) {
         return new Response("00000", msg, result);
     }
+
+    public static Response buildSuccess(String msg) {return new Response("00000", msg, null);}
 
     public static Response buildSuccess() {return new Response("00000", "Success", "操作成功");}
 

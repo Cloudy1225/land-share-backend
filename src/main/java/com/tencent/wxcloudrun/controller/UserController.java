@@ -38,16 +38,17 @@ public class UserController {
         logger.info("/my/loginOrRegister get request, 目的：登录或注册，用户openid: {}", openid);
 
         User user = userService.findByOpenid(openid);
-        HashMap<String, Character> role = new HashMap<>();
+        HashMap<String, String> roleAndTele = new HashMap<>();
         if(user != null){
-            role.put("role", user.getRole());
+            roleAndTele.put("role", user.getRole().toString());
+            roleAndTele.put("telenumber", user.getTelenumber());
             String msg = null;
             if(user.getRole() == '1'){
                 msg = "未实名用户，直接登录";
             }else {
                 msg = "已实名用户，直接登录";
             }
-            return Response.buildSuccess(msg, role);
+            return Response.buildSuccess(msg, roleAndTele);
         }
         /*UserVO userVO = new UserVO();
         userVO.setOpenid(openid);
@@ -56,8 +57,9 @@ public class UserController {
         User newUser = new User();
         newUser.setOpenid(openid);
         userService.createUser(newUser);
-        role.put("role", '1');
-        return Response.buildSuccess("自动注册，直接登录", role);
+        roleAndTele.put("role", "1");
+        roleAndTele.put("telenumber", "");
+        return Response.buildSuccess("自动注册，直接登录", roleAndTele);
     }
 
     // 注销用户
@@ -67,7 +69,7 @@ public class UserController {
 
         int hasUser = userService.deleteUser(openid);
         if(hasUser == 0){
-            return Response.buildFailed("10000", "用户不存在");
+            return Response.buildFailed("10001", "用户不存在");
         }
         return Response.buildSuccess("用户已注销");
     }
@@ -75,7 +77,7 @@ public class UserController {
     // 实名认证
     @PostMapping("/realName")
     public Response userRealName(@RequestBody UserVO userVO, @RequestHeader("X-WX-OPENID") String openid){
-        logger.info("/my/realName get request, 目的：实名，用户openid: {}", openid);
+        logger.info("/my/realName post request, 目的：实名，用户openid: {}", openid);
 
         User userPO = new User();
         BeanUtils.copyProperties(userVO, userPO);
@@ -93,6 +95,6 @@ public class UserController {
         System.out.println(user);
         UserVO userVO = new UserVO();
         BeanUtils.copyProperties(user, userVO);
-        return Response.buildSuccess(userVO);
+        return Response.buildSuccess("实名信息获取成功", userVO);
     }
 }
