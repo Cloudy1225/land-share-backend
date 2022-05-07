@@ -92,7 +92,7 @@ public class UserController {
         logger.info("/my/getUserInfo get request, 目的：获取实名信息，用户openid: {}", openid);
 
         User user = userService.findByOpenid(openid);
-        System.out.println(user);
+//        System.out.println(user);
         UserVO userVO = new UserVO();
         BeanUtils.copyProperties(user, userVO);
         return Response.buildSuccess("实名信息获取成功", userVO);

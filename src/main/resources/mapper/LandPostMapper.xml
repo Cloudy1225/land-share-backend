@@ -35,7 +35,26 @@
         values (#{landType}, #{transferType}, #{area}, #{transferTime}, #{price}, #{address}, #{longtitude}, #{latitude}, #{description}, #{pictureFileID}, #{videoFileID}, #{warrantsFileID}, #{telenumber}, #{openid})
     </insert>
 
-    <!--更新时注意设status为false-->
+
+    <select id = "selectByOpenid" parameterType="java.lang.String" resultMap="LandPostPO">
+        select * from LandPost where openid = #{openid} order by submitTime desc
+    </select>
+
+    <update id="updateLandPost" parameterType="com.tencent.wxcloudrun.model.po.LandPostPO">
+        UPDATE LandPost
+        SET landType=#{landType}, transferType=#{transferType}, area=#{area},transferTime=#{transferTime}, price=#{price}, address=#{address}, longtitude=#{longtitude}, latitude=#{latitude}, description=#{description}, pictureFileID=#{pictureFileID}, videoFileID=#{videoFileID}, warrantsFileID=#{warrantsFileID}, telenumber=#{telenumber}, status=false
+        WHERE lid=#{lid}
+    </update>
+
+    <delete id="deleteLandPost" parameterType="java.lang.Integer">
+        DELETE
+        FROM landpost
+        WHERE lid=#{lid}
+    </delete>
+
+    <select id = "select10BySubmitTime" parameterType="java.time.LocalDateTime" resultMap="LandPostPO">
+        select * from LandPost where submitTime &lt; #{submitTime} order by submitTime desc limit 10
+    </select>
 
 
 </mapper>

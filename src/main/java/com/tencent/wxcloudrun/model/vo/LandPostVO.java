@@ -40,7 +40,7 @@ public class LandPostVO {
     private String telenumber;
 
     // 审核状态
-    private Boolean status;
+    private Integer status;
 
     private String openid;
 

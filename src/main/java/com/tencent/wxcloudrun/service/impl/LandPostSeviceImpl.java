@@ -6,6 +6,9 @@ import com.tencent.wxcloudrun.service.LandPostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+
 
 @Service
 public class LandPostSeviceImpl implements LandPostService {
@@ -21,5 +24,25 @@ public class LandPostSeviceImpl implements LandPostService {
     @Override
     public int createLandPost(LandPostPO landPostPO) {
         return landPostDao.insertLandPost(landPostPO);
+    }
+
+    @Override
+    public ArrayList<LandPostPO> getMyLandPosts(String openid) {
+        return landPostDao.selectByOpenid(openid);
+    }
+
+    @Override
+    public int updateLandPost(LandPostPO landPostPO) {
+        return landPostDao.updateLandPost(landPostPO);
+    }
+
+    @Override
+    public int deleteLandPost(Integer lid) {
+        return landPostDao.deleteLandPost(lid);
+    }
+
+    @Override
+    public ArrayList<LandPostPO> get10LandPosts(LocalDateTime submitTime) {
+        return landPostDao.select10BySubmitTime(submitTime);
     }
 }

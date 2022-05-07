@@ -1,0 +1,27 @@
+POST http://localhost:80/landPost/createLandPost
+Content-Type: application/json
+X-WX-OPENID: lyh
+
+{
+  "landType": "耕地/水田",
+  "transferType": "出租",
+  "area": 14.5,
+  "transferTime": 5,
+  "price": 10000,
+  "address": "安徽省淮南市凤台县",
+  "longtitude": 118.238,
+  "latitude": 30.223,
+  "description": "非常nice",
+  "pictureFileID": "fgshjfj.jpg|ehfhsjf.png|good.png",
+  "videoFileID": "lyhlyh.mp4",
+  "warrantsFileID": "warrantsFileID.png|hhh.png",
+  "telenumber": "18355442634",
+  "status": false
+}
+
+###
+GET http://localhost:80/landPost/getLandPosts?submitTime=2022-05-06%2013:55:55
+Accept: application/json
+
+###
+

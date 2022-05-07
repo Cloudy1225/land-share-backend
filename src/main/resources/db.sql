@@ -36,8 +36,9 @@ CREATE TABLE LandPost (
     videoFileID varchar(150) NULL ,
     warrantsFileID varchar(1000) NOT NULL ,
     telenumber char(11) NOT NULL ,
-    status boolean NOT NULL DEFAULT false,
+    status int NOT NULL DEFAULT 0,
     openid varchar(100) NOT NULL,
     submitTime timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (lid)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
