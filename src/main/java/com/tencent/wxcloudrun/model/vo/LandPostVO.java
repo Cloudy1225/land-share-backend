@@ -29,6 +29,8 @@ public class LandPostVO {
 
     private Double latitude;
 
+    private String adInfo;
+
     private String description;
 
     private String pictureFileID;

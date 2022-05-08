@@ -235,8 +235,9 @@ body：注意**Content-Type为application/json**，而不是 multipart/form-data
     "transferTime": 5,
     "price": 10000,
     "address": "安徽省淮南市凤台县",
-    "longtitude": "118.238",
+    "longtitude": 118.238,
     "latitude": 30.223,
+    "adInfo": "安徽省淮南市凤台县",
     "description": "非常nice",
     "pictureFileID":"fgshjfj.jpg|ehfhsjf.png",
     "videoFileID": "lyhlyh.mp4",
@@ -306,6 +307,7 @@ body：注意**Content-Type为application/json**，而不是 multipart/form-data
 			"address": "安徽省淮南市凤台县",
 			"longtitude": 118.238,
 			"latitude": 30.223,
+            "adInfo": "安徽省淮南市凤台县",
 			"description": "非常nice",
 			"pictureFileID": "fgshjfj.jpg|ehfhsjf.png|good.png",
 			"videoFileID": "lyhlyh.mp4",
@@ -325,6 +327,7 @@ body：注意**Content-Type为application/json**，而不是 multipart/form-data
 			"address": "安徽省淮南市凤台县",
 			"longtitude": 118.238,
 			"latitude": 30.223,
+            "adInfo": "安徽省淮南市凤台县",
 			"description": "非常nice",
 			"pictureFileID": "fgshjfj.jpg|ehfhsjf.png",
 			"videoFileID": "lyhlyh.mp4",
@@ -371,6 +374,7 @@ body：注意**Content-Type为application/json**，而不是 multipart/form-data
     "address": "安徽省淮南市凤台县",
     "longtitude": "118.238",
     "latitude": 30.223,
+    "adInfo": "安徽省淮南市凤台县",
     "description": "非常nice",
     "pictureFileID":"fgshjfj.jpg|ehfhsjf.png",
     "videoFileID": "lyhlyh.mp4",
@@ -464,6 +468,7 @@ eg: landPost/deleteLandPost?lid=2
       "address": "安徽省淮南市凤台县",
       "longtitude": 118.238,
       "latitude": 30.223,
+      "adInfo": "安徽省淮南市凤台县",
       "description": "非常nice",
       "pictureFileID": "fgshjfj.jpg|ehfhsjf.png|good.png",
       "videoFileID": "lyhlyh.mp4",
@@ -483,6 +488,7 @@ eg: landPost/deleteLandPost?lid=2
       "address": "安徽省淮南市凤台县",
       "longtitude": 118.238,
       "latitude": 30.223,
+      "adInfo": "安徽省淮南市凤台县",
       "description": "非常nice1344",
       "pictureFileID": "fgshjfj.jpg|ehfhsjf.png",
       "videoFileID": "lyhlyh.mp4",
@@ -668,11 +674,11 @@ time格式一定要正确
 
 ```json
 {
-    "title": "盘活闲置土地，京郊这个村村民集体创收逾千万元",
-    "type": "news",
-    "url": "https://7072-prod-9grx0olg9c8cf232-1311076540.tcb.qcloud.la/articles/news/news1.md?sign=cea21e1e97738bfbb531f2233ba90814&t=1651979106",
-    "fileID": "cloud://prod-9grx0olg9c8cf232.7072-prod-9grx0olg9c8cf232-1311076540/articles/news/news1.md",
-    "time": "2022-04-26"
+    "title": "流转耕地可做什么用途？种树合法吗？",
+    "type": "question",
+    "url": "https://7072-prod-9grx0olg9c8cf232-1311076540.tcb.qcloud.la/articles/questions/question1.md?sign=d359b80b3319d18a2b474cfb4e209f19&t=1651982691",
+    "fileID": "cloud://prod-9grx0olg9c8cf232.7072-prod-9grx0olg9c8cf232-1311076540/articles/questions/question1.md",
+    "time": "2022-05-06"
 }
 ```
 

@@ -31,6 +31,7 @@ CREATE TABLE LandPost (
     address varchar(30) NOT NULL COMMENT '土地位置',
     longtitude double NULL COMMENT '经度',
     latitude double NULL COMMENT '纬度',
+    adInfo varchar(50) NULL COMMENT '行政规划信息',
     description varchar(1500) NULL COMMENT '土地描述',
     pictureFileID varchar(1000) NULL COMMENT '图片云托管fileID',
     videoFileID varchar(150) NULL COMMENT '视频云托管fileID',

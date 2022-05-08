@@ -31,8 +31,8 @@
 
     <!-- id 对应 Dao 中方法名，parameterType 对应 Dao 中参数类型 -->
     <insert id = "insertLandPost" parameterType="com.tencent.wxcloudrun.model.po.LandPostPO">
-        insert into LandPost(landType, transferType, area, transferTime, price, address, longtitude, latitude, description, pictureFileID, videoFileID, warrantsFileID, telenumber, openid)
-        values (#{landType}, #{transferType}, #{area}, #{transferTime}, #{price}, #{address}, #{longtitude}, #{latitude}, #{description}, #{pictureFileID}, #{videoFileID}, #{warrantsFileID}, #{telenumber}, #{openid})
+        insert into LandPost(landType, transferType, area, transferTime, price, address, longtitude, latitude, adInfo, description, pictureFileID, videoFileID, warrantsFileID, telenumber, openid)
+        values (#{landType}, #{transferType}, #{area}, #{transferTime}, #{price}, #{address}, #{longtitude}, #{latitude}, #{adInfo}, #{description}, #{pictureFileID}, #{videoFileID}, #{warrantsFileID}, #{telenumber}, #{openid})
     </insert>
 
 
@@ -42,7 +42,7 @@
 
     <update id="updateLandPost" parameterType="com.tencent.wxcloudrun.model.po.LandPostPO">
         UPDATE LandPost
-        SET landType=#{landType}, transferType=#{transferType}, area=#{area},transferTime=#{transferTime}, price=#{price}, address=#{address}, longtitude=#{longtitude}, latitude=#{latitude}, description=#{description}, pictureFileID=#{pictureFileID}, videoFileID=#{videoFileID}, warrantsFileID=#{warrantsFileID}, telenumber=#{telenumber}, status=false
+        SET landType=#{landType}, transferType=#{transferType}, area=#{area}, transferTime=#{transferTime}, price=#{price}, address=#{address}, longtitude=#{longtitude}, latitude=#{latitude}, adInfo=#{adInfo}, description=#{description}, pictureFileID=#{pictureFileID}, videoFileID=#{videoFileID}, warrantsFileID=#{warrantsFileID}, telenumber=#{telenumber}, status=false
         WHERE lid=#{lid}
     </update>
 

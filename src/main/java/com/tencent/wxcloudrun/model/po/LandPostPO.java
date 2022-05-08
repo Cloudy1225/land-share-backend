@@ -32,6 +32,8 @@ public class LandPostPO {
 
     private Double latitude;
 
+    private String adInfo;
+
     private String description;
 
     private String pictureFileID;
