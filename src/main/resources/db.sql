@@ -22,23 +22,33 @@ ALTER TABLE `UserInformation` ALTER COLUMN `role` DROP DEFAULT ; # 如果你的�
 ALTER TABLE `UserInformation` ALTER COLUMN `role` SET DEFAULT '1';
 
 CREATE TABLE LandPost (
-    lid int(7)  UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
-    landType varchar(15) NOT NULL,
-    transferType varchar(6) NOT NULL,
-    area double NOT NULL ,
-    transferTime double NOT NULL ,
-    price double NOT NULL ,
-    address varchar(30) NOT NULL ,
-    longtitude double NULL ,
-    latitude double NULL ,
-    description varchar(1500) NULL,
-    pictureFileID varchar(1000) NULL ,
-    videoFileID varchar(150) NULL ,
-    warrantsFileID varchar(1000) NOT NULL ,
-    telenumber char(11) NOT NULL ,
-    status int NOT NULL DEFAULT 0,
-    openid varchar(100) NOT NULL,
-    submitTime timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    lid int(7)  UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT COMMENT '土地发布id',
+    landType varchar(15) NOT NULL COMMENT '土地类型',
+    transferType varchar(6) NOT NULL COMMENT '流转方式',
+    area double NOT NULL COMMENT '土地面积',
+    transferTime double NOT NULL COMMENT '流转时间',
+    price double NOT NULL COMMENT '流转单价',
+    address varchar(30) NOT NULL COMMENT '土地位置',
+    longtitude double NULL COMMENT '经度',
+    latitude double NULL COMMENT '纬度',
+    description varchar(1500) NULL COMMENT '土地描述',
+    pictureFileID varchar(1000) NULL COMMENT '图片云托管fileID',
+    videoFileID varchar(150) NULL COMMENT '视频云托管fileID',
+    warrantsFileID varchar(1000) NOT NULL COMMENT '土地凭证图片云托管fileID',
+    telenumber char(11) NOT NULL COMMENT '联系电话',
+    status int NOT NULL DEFAULT 0 COMMENT '审核状态-1，0，1',
+    openid varchar(100) NOT NULL COMMENT '发布者openid',
+    submitTime timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '发布时间',
     PRIMARY KEY (lid)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE Article (
+      aid int(7)  UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT COMMENT '文章id',
+      title varchar(100) NOT NULL COMMENT '文章标题',
+      type varchar(12) NOT NULL COMMENT '文章类型',
+      url varchar(255) NOT NULL COMMENT '文章https地址',
+      fileID varchar(255) NOT NULL COMMENT '云托管fileID',
+      time varchar(30) NOT NULL COMMENT '文章发布时间',
+      PRIMARY KEY (aid)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

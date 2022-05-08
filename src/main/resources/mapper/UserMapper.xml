@@ -19,7 +19,7 @@
         <result property="role" column="role" />
     </resultMap>
 
-    <!-- id 对应 Dao 中方法名，parameterTypr 对应 Dao 中参数类型 -->
+    <!-- id 对应 Dao 中方法名，parameterType 对应 Dao 中参数类型 -->
     <insert id = "insertUser" parameterType="com.tencent.wxcloudrun.model.po.User">
         insert into UserInformation(`openid`)
         values (#{openid})

@@ -22,11 +22,13 @@
 
 ## API
 
-### ```GET /my/loginOrRegister```
+### User
+
+#### ```GET /my/loginOrRegister```
 
 登录或注册，由于微信小程序和微信云托管的特殊性，我暂且把它们放在了一块
 
-#### 请求
+##### 请求
 
 自己用Postman、ApiPost等工具测试的话要在header里携带这项信息
 
@@ -38,7 +40,7 @@
 
 微信小程序中``wx.cloud.callContainer``中的header自动携带了上述信息
 
-#### 响应
+##### 响应
 
 会返回用户角色1 或 2，已经角色信息
 
@@ -77,7 +79,7 @@
 
 
 
-#### 调用示例
+##### 调用示例
 
 微信小程序版：见前端代码
 
@@ -91,11 +93,11 @@
 
 
 
-### ```GET /my/deleteUser```
+#### ```GET /my/deleteUser```
 
 用户注销
 
-#### 请求
+##### 请求
 
 自己用Postman、ApiPost等工具测试的话要在header里携带这项信息
 
@@ -107,7 +109,7 @@
 
 微信小程序中``wx.cloud.callContainer``中的header自动携带了上述信息
 
-#### 响应
+##### 响应
 
 ```json
 {
@@ -127,11 +129,11 @@
 
 
 
-### ```POST /my/realName```
+#### ```POST /my/realName```
 
 用户实名 / 更改实名信息
 
-#### 请求
+##### 请求
 
 header
 
@@ -155,7 +157,7 @@ body：注意**Content-Type为application/json**，而不是 multipart/form-data
 }
 ```
 
-#### 响应
+##### 响应
 
 ```json
 {
@@ -167,11 +169,11 @@ body：注意**Content-Type为application/json**，而不是 multipart/form-data
 
 
 
-### ```GET /my/getUserInfo```
+#### ```GET /my/getUserInfo```
 
 获取用户信息，不包括openid和收藏信息
 
-#### 请求
+##### 请求
 
 header
 
@@ -185,7 +187,7 @@ header
 
 微信小程序中``wx.cloud.callContainer``中的header自动携带了上述信息
 
-#### 响应
+##### 响应
 
 ```json
 {
@@ -203,11 +205,13 @@ header
 
 
 
-### ```POST /landPost/createLandPost```
+### Land
+
+#### ```POST /landPost/createLandPost```
 
 用户发布土地
 
-#### 请求
+##### 请求
 
 header
 
@@ -241,7 +245,7 @@ body：注意**Content-Type为application/json**，而不是 multipart/form-data
 }
 ```
 
-#### 响应
+##### 响应
 
 ```json
 {
@@ -261,11 +265,11 @@ body：注意**Content-Type为application/json**，而不是 multipart/form-data
 
 
 
-### ```GET /landPost/getMyLandPosts```
+#### ```GET /landPost/getMyLandPosts```
 
 获取我的所有发布土地，响应结果按时间排序，status为-1指未通过审核，0指待审核，1指审核通过
 
-#### 请求
+##### 请求
 
 自己用Postman、ApiPost等工具测试的话要在header里携带这项信息
 
@@ -277,7 +281,7 @@ body：注意**Content-Type为application/json**，而不是 multipart/form-data
 
 微信小程序中``wx.cloud.callContainer``中的header自动携带了上述信息
 
-#### 响应
+##### 响应
 
 ```json
 {
@@ -336,11 +340,11 @@ body：注意**Content-Type为application/json**，而不是 multipart/form-data
 
 
 
-### ```POST /landPost/updateLandPost```
+#### ```POST /landPost/updateLandPost```
 
 更新特定的土地信息
 
-#### 请求
+##### 请求
 
 自己用Postman、ApiPost等工具测试的话要在header里携带这项信息
 
@@ -377,7 +381,7 @@ body：注意**Content-Type为application/json**，而不是 multipart/form-data
 
 
 
-#### 响应
+##### 响应
 
 ```json
 {
@@ -397,11 +401,11 @@ body：注意**Content-Type为application/json**，而不是 multipart/form-data
 
 
 
-### ```GET /landPost/deleteLandPost?lid={lid}```
+#### ```GET /landPost/deleteLandPost?lid={lid}```
 
 删除特定的土地
 
-#### 请求
+##### 请求
 
 自己用Postman、ApiPost等工具测试的话要在header里携带这项信息
 
@@ -417,7 +421,7 @@ body：注意**Content-Type为application/json**，而不是 multipart/form-data
 
 eg: landPost/deleteLandPost?lid=2
 
-#### 响应
+##### 响应
 
 ```json
 {
@@ -435,15 +439,15 @@ eg: landPost/deleteLandPost?lid=2
 }
 ```
 
-### ```GET /landPost/getLandPosts?submitTime={submitTime}```
+#### ```GET /landPost/getLandPosts?submitTime={submitTime}```
 
 返回 10 个土地信息，返回结果已经按时间排序，且status为1，表明已经审核通过
 
-#### 请求
+##### 请求
 
 **请求 url**: ```landPost/deleteLandPost?submitTime=2022-05-06 17:00:00```
 
-#### 响应
+##### 响应
 
 ```json
 {
@@ -646,13 +650,183 @@ eg: landPost/deleteLandPost?lid=2
 
 
 
+### Article
+
+#### ```POST /article/insertArticle```
+
+插入一篇文章
+
+##### 请求
+
+header无特殊要求
+
+body：注意**Content-Type为application/json**，而不是 multipart/form-data
+
+type取值：policy、news、question、reference
+
+time格式一定要正确
+
+```json
+{
+    "title": "盘活闲置土地，京郊这个村村民集体创收逾千万元",
+    "type": "news",
+    "url": "https://7072-prod-9grx0olg9c8cf232-1311076540.tcb.qcloud.la/articles/news/news1.md?sign=cea21e1e97738bfbb531f2233ba90814&t=1651979106",
+    "fileID": "cloud://prod-9grx0olg9c8cf232.7072-prod-9grx0olg9c8cf232-1311076540/articles/news/news1.md",
+    "time": "2022-04-26"
+}
+```
+
+##### 响应
+
+```json
+{
+	"code": "00000",
+	"msg": "文章上传成功",
+	"result": null
+}
+```
+
+
+
+#### ```POST /article/updateArticle```
+
+更新文章信息
+
+##### 请求 
+
+同上
+
+##### 响应
+
+```json
+{
+	"code": "00000",
+	"msg": "文章更新成功",
+	"result": null
+}
+```
+
+
+
+#### ```GET /article/getArticles?time={}&type={}```
+
+获取文章，最多返回10个，按time降序排列
+
+##### 请求
+
+header无特殊要求
+
+对于类型为全部的文章：```/article/getArticles?time=2022-05-08```即可
+
+对应特殊类型的文章：```/article/getArticles?time=2022-05-08&type=news```
+
+##### 响应
+
+```json
+{
+    "code": "10004",
+    "msg": "文章类型错误",
+    "result": null
+}
+```
+
+
+
+```json
+{
+	"code": "00000",
+	"msg": "文章获取成功",
+	"result": [
+		{
+			"aid": 1,
+			"title": "盘活闲置土地，京郊这个村村民集体创收逾千万元",
+			"type": "news",
+			"url": "https://7072-prod-9grx0olg9c8cf232-1311076540.tcb.qcloud.la/articles/news/news1.md?sign=cea21e1e97738bfbb531f2233ba90814&t=1651979106",
+			"fileID": "cloud://prod-9grx0olg9c8cf232.7072-prod-9grx0olg9c8cf232-1311076540/articles/news/news1.md",
+			"time": "2022-04-27"
+		},
+		{
+			"aid": 5,
+			"title": "l5盘活闲置土地，京郊这个村村民集体创收逾千万元",
+			"type": "news",
+			"url": "https://7072-prod-9grx0olg9c8cf232-1311076540.tcb.qcloud.la/articles/news/news1.md?sign=cea21e1e97738bfbb531f2233ba90814&t=1651979106",
+			"fileID": "cloud://prod-9grx0olg9c8cf232.7072-prod-9grx0olg9c8cf232-1311076540/articles/news/news1.md",
+			"time": "2022-04-11"
+		},
+		{
+			"aid": 6,
+			"title": "5盘活闲置土地，京郊这个村村民集体创收逾千万元",
+			"type": "news",
+			"url": "https://7072-prod-9grx0olg9c8cf232-1311076540.tcb.qcloud.la/articles/news/news1.md?sign=cea21e1e97738bfbb531f2233ba90814&t=1651979106",
+			"fileID": "cloud://prod-9grx0olg9c8cf232.7072-prod-9grx0olg9c8cf232-1311076540/articles/news/news1.md",
+			"time": "2022-04-11"
+		},
+		{
+			"aid": 4,
+			"title": "45盘活闲置土地，京郊这个村村民集体创收逾千万元",
+			"type": "news",
+			"url": "https://7072-prod-9grx0olg9c8cf232-1311076540.tcb.qcloud.la/articles/news/news1.md?sign=cea21e1e97738bfbb531f2233ba90814&t=1651979106",
+			"fileID": "cloud://prod-9grx0olg9c8cf232.7072-prod-9grx0olg9c8cf232-1311076540/articles/news/news1.md",
+			"time": "2022-04-10"
+		},
+		{
+			"aid": 3,
+			"title": "4盘活闲置土地，京郊这个村村民集体创收逾千万元",
+			"type": "news",
+			"url": "https://7072-prod-9grx0olg9c8cf232-1311076540.tcb.qcloud.la/articles/news/news1.md?sign=cea21e1e97738bfbb531f2233ba90814&t=1651979106",
+			"fileID": "cloud://prod-9grx0olg9c8cf232.7072-prod-9grx0olg9c8cf232-1311076540/articles/news/news1.md",
+			"time": "2022-04-07"
+		},
+		{
+			"aid": 2,
+			"title": "2盘活闲置土地，京郊这个村村民集体创收逾千万元",
+			"type": "news",
+			"url": "https://7072-prod-9grx0olg9c8cf232-1311076540.tcb.qcloud.la/articles/news/news1.md?sign=cea21e1e97738bfbb531f2233ba90814&t=1651979106",
+			"fileID": "cloud://prod-9grx0olg9c8cf232.7072-prod-9grx0olg9c8cf232-1311076540/articles/news/news1.md",
+			"time": "2022-04-06"
+		},
+		{
+			"aid": 11,
+			"title": "村村民集体创收万元",
+			"type": "news",
+			"url": "https://7072-prod-9grx0olg9c8cf232-1311076540.tcb.qcloud.la/articles/news/news1.md?sign=cea21e1e97738bfbb531f2233ba90814&t=1651979106",
+			"fileID": "cloud://prod-9grx0olg9c8cf232.7072-prod-9grx0olg9c8cf232-1311076540/articles/news/news1.md",
+			"time": "2022-03-23"
+		},
+		{
+			"aid": 10,
+			"title": "村村民集体创收逾千万元",
+			"type": "news",
+			"url": "https://7072-prod-9grx0olg9c8cf232-1311076540.tcb.qcloud.la/articles/news/news1.md?sign=cea21e1e97738bfbb531f2233ba90814&t=1651979106",
+			"fileID": "cloud://prod-9grx0olg9c8cf232.7072-prod-9grx0olg9c8cf232-1311076540/articles/news/news1.md",
+			"time": "2022-03-21"
+		},
+		{
+			"aid": 8,
+			"title": "5活4置土地，京郊这个村村民集体创收逾千万元",
+			"type": "news",
+			"url": "https://7072-prod-9grx0olg9c8cf232-1311076540.tcb.qcloud.la/articles/news/news1.md?sign=cea21e1e97738bfbb531f2233ba90814&t=1651979106",
+			"fileID": "cloud://prod-9grx0olg9c8cf232.7072-prod-9grx0olg9c8cf232-1311076540/articles/news/news1.md",
+			"time": "2022-03-11"
+		},
+		{
+			"aid": 7,
+			"title": "5活闲置土地，京郊这个村村民集体创收逾千万元",
+			"type": "news",
+			"url": "https://7072-prod-9grx0olg9c8cf232-1311076540.tcb.qcloud.la/articles/news/news1.md?sign=cea21e1e97738bfbb531f2233ba90814&t=1651979106",
+			"fileID": "cloud://prod-9grx0olg9c8cf232.7072-prod-9grx0olg9c8cf232-1311076540/articles/news/news1.md",
+			"time": "2022-02-11"
+		}
+	]
+}
+```
+
 
 
 ## 部署踩坑
 
 1. 微信云托管 MySql 表名与后端代码中大小些必须一致，本地测试都可以不一致
 2. 微信云托管 MySql 中 varchar(20) 竟然容纳不了```ob7d15cPOmz6_y8WAViPMAslKS4g```，于是openid的属性我改成 varchar(100) 了
-
 
 
 

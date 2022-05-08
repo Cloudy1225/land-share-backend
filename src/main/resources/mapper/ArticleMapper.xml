@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tencent.wxcloudrun.dao.ArticleDao">
+
+    <!-- resultMap最终还是要将结果映射到pojo上，type就是指定映射到哪一个pojo -->
+    <!-- id	当前命名空间中的一个唯一标识，用于标识一个结果映射。 -->
+    <resultMap id="ArticlePO" type="com.tencent.wxcloudrun.model.po.ArticlePO">
+        <!-- 定义主键 ,非常重要。如果是多个字段,则定义多个id -->
+        <!-- property：主键在pojo中的属性名 -->
+        <!-- column：主键在数据库中的列名 -->
+        <id property="aid" column="aid" />
+
+        <!-- 定义普通属性 -->
+        <result property="title" column="title" />
+        <result property="type" column="type" />
+        <result property="url" column="url" />
+        <result property="fileID" column="fileID" />
+        <result property="time" column="time" />
+    </resultMap>
+
+    <!-- id 对应 Dao 中方法名，parameterType 对应 Dao 中参数类型 -->
+    <insert id = "insertArticle" parameterType="com.tencent.wxcloudrun.model.po.ArticlePO">
+        insert into Article(`title`, `type`, `url`, `fileID`, `time`)
+        values (#{title}, #{type}, #{url}, #{fileID}, #{time})
+    </insert>
+
+    <select id = "select10ByTime" parameterType="java.lang.String" resultMap="ArticlePO">
+        select * from Article where time &lt; #{time} order by time desc limit 10
+    </select>
+
+    <select id = "select10ByTypeAndTime" resultMap="ArticlePO">
+        select * from Article where type = #{type} and time &lt; #{time} order by time desc limit 10
+    </select>
+
+    <update id="updateArticle" parameterType="com.tencent.wxcloudrun.model.po.ArticlePO">
+        UPDATE Article
+        SET title=#{title}, type=#{type}, url=#{url}, fileID=#{fileID}, time=#{time}
+        WHERE title=#{title}
+    </update>
+
+</mapper>
