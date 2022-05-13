@@ -443,13 +443,24 @@ eg: landPost/deleteLandPost?lid=2
 }
 ```
 
-#### ```GET /landPost/getLandPosts?submitTime={submitTime}```
+#### ```POST /landPost/getLandPosts```
 
 返回 10 个土地信息，返回结果已经按时间排序，且status为1，表明已经审核通过
 
 ##### 请求
 
-**请求 url**: ```landPost/deleteLandPost?submitTime=2022-05-06 17:00:00```
+body：注意**Content-Type为application/json**，而不是 multipart/form-data
+
+```json
+{
+    "landType": "耕地/水田",
+    "transferType": "出租",
+    "adInfo": "南京市",
+  	"submitTime": "2022-05-09 23:34:06"
+}
+```
+
+
 
 ##### 响应
 
@@ -465,10 +476,10 @@ eg: landPost/deleteLandPost?lid=2
       "area": 14.5,
       "transferTime": 5.0,
       "price": 10000.0,
-      "address": "安徽省淮南市凤台县",
+      "address": "南京市栖霞区仙林大道163号",
       "longtitude": 118.238,
       "latitude": 30.223,
-      "adInfo": "安徽省淮南市凤台县",
+      "adInfo": "南京市",
       "description": "非常nice",
       "pictureFileID": "fgshjfj.jpg|ehfhsjf.png|good.png",
       "videoFileID": "lyhlyh.mp4",
@@ -485,10 +496,10 @@ eg: landPost/deleteLandPost?lid=2
       "area": 14.5,
       "transferTime": 5.0,
       "price": 10000.0,
-      "address": "安徽省淮南市凤台县",
+      "address": "南京市栖霞区仙林大道163号",
       "longtitude": 118.238,
       "latitude": 30.223,
-      "adInfo": "安徽省淮南市凤台县",
+      "adInfo": "南京市",
       "description": "非常nice1344",
       "pictureFileID": "fgshjfj.jpg|ehfhsjf.png",
       "videoFileID": "lyhlyh.mp4",
@@ -497,158 +508,6 @@ eg: landPost/deleteLandPost?lid=2
       "status": 1,
       "openid": "lyh",
       "submitTime": "2022-05-05 20:58:30"
-    },
-    {
-      "lid": 14,
-      "landType": "耕地/水田",
-      "transferType": "出租",
-      "area": 14.5,
-      "transferTime": 5.0,
-      "price": 10000.0,
-      "address": "安徽省淮南市凤台县",
-      "longtitude": 118.238,
-      "latitude": 30.223,
-      "description": "非常nice1344",
-      "pictureFileID": "fgshjfj.jpg|ehfhsjf.png",
-      "videoFileID": "lyhlyh.mp4",
-      "warrantsFileID": "warrantsFileID.png",
-      "telenumber": "18355442634",
-      "status": 1,
-      "openid": "lyh",
-      "submitTime": "2022-05-05 20:58:29"
-    },
-    {
-      "lid": 13,
-      "landType": "耕地/水田",
-      "transferType": "出租",
-      "area": 14.5,
-      "transferTime": 5.0,
-      "price": 10000.0,
-      "address": "安徽省淮南市凤台县",
-      "longtitude": 118.238,
-      "latitude": 30.223,
-      "description": "非常nice1344",
-      "pictureFileID": "fgshjfj.jpg|ehfhsjf.png",
-      "videoFileID": "lyhlyh.mp4",
-      "warrantsFileID": "warrantsFileID.png",
-      "telenumber": "18355442634",
-      "status": 1,
-      "openid": "lyh",
-      "submitTime": "2022-05-05 20:58:27"
-    },
-    {
-      "lid": 12,
-      "landType": "耕地/水田",
-      "transferType": "出租",
-      "area": 14.5,
-      "transferTime": 5.0,
-      "price": 10000.0,
-      "address": "安徽省淮南市凤台县",
-      "longtitude": 118.238,
-      "latitude": 30.223,
-      "description": "非常nice1344",
-      "pictureFileID": "fgshjfj.jpg|ehfhsjf.png",
-      "videoFileID": "lyhlyh.mp4",
-      "warrantsFileID": "warrantsFileID.png",
-      "telenumber": "18355442634",
-      "status": 1,
-      "openid": "lyh",
-      "submitTime": "2022-05-05 20:58:26"
-    },
-    {
-      "lid": 11,
-      "landType": "耕地/水田",
-      "transferType": "出租",
-      "area": 14.5,
-      "transferTime": 5.0,
-      "price": 10000.0,
-      "address": "安徽省淮南市凤台县",
-      "longtitude": 118.238,
-      "latitude": 30.223,
-      "description": "非常nice1344",
-      "pictureFileID": "fgshjfj.jpg|ehfhsjf.png",
-      "videoFileID": "lyhlyh.mp4",
-      "warrantsFileID": "warrantsFileID.png",
-      "telenumber": "18355442634",
-      "status": 1,
-      "openid": "lyh",
-      "submitTime": "2022-05-05 20:58:24"
-    },
-    {
-      "lid": 10,
-      "landType": "耕地/水田",
-      "transferType": "出租",
-      "area": 14.5,
-      "transferTime": 5.0,
-      "price": 10000.0,
-      "address": "安徽省淮南市凤台县",
-      "longtitude": 118.238,
-      "latitude": 30.223,
-      "description": "非常nice1",
-      "pictureFileID": "fgshjfj.jpg|ehfhsjf.png",
-      "videoFileID": "lyhlyh.mp4",
-      "warrantsFileID": "warrantsFileID.png",
-      "telenumber": "18355442634",
-      "status": 1,
-      "openid": "lyh",
-      "submitTime": "2022-05-05 20:58:19"
-    },
-    {
-      "lid": 9,
-      "landType": "耕地/水田",
-      "transferType": "出租",
-      "area": 14.5,
-      "transferTime": 5.0,
-      "price": 10000.0,
-      "address": "安徽省淮南市凤台县",
-      "longtitude": 118.238,
-      "latitude": 30.223,
-      "description": "非常nice1",
-      "pictureFileID": "fgshjfj.jpg|ehfhsjf.png",
-      "videoFileID": "lyhlyh.mp4",
-      "warrantsFileID": "warrantsFileID.png",
-      "telenumber": "18355442634",
-      "status": 1,
-      "openid": "lyh",
-      "submitTime": "2022-05-05 20:58:17"
-    },
-    {
-      "lid": 8,
-      "landType": "耕地/水田",
-      "transferType": "出租",
-      "area": 14.5,
-      "transferTime": 5.0,
-      "price": 10000.0,
-      "address": "安徽省淮南市凤台县",
-      "longtitude": 118.238,
-      "latitude": 30.223,
-      "description": "非常nice1",
-      "pictureFileID": "fgshjfj.jpg|ehfhsjf.png",
-      "videoFileID": "lyhlyh.mp4",
-      "warrantsFileID": "warrantsFileID.png",
-      "telenumber": "18355442634",
-      "status": 1,
-      "openid": "lyh",
-      "submitTime": "2022-05-05 20:58:16"
-    },
-    {
-      "lid": 7,
-      "landType": "耕地/水田",
-      "transferType": "出租",
-      "area": 14.5,
-      "transferTime": 5.0,
-      "price": 10000.0,
-      "address": "安徽省淮南市凤台县",
-      "longtitude": 118.238,
-      "latitude": 30.223,
-      "description": "非常nice",
-      "pictureFileID": "fgshjfj.jpg|ehfhsjf.png",
-      "videoFileID": "lyhlyh.mp4",
-      "warrantsFileID": "warrantsFileID.png",
-      "telenumber": "18355442634",
-      "status": 1,
-      "openid": "lyh",
-      "submitTime": "2022-05-05 20:58:03"
     }
   ]
 }

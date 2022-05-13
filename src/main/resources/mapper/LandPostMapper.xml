@@ -56,5 +56,19 @@
         select * from LandPost where submitTime &lt; #{submitTime} order by submitTime desc limit 10
     </select>
 
+    <select id = "selectByFilters" parameterType="com.tencent.wxcloudrun.dto.LandFilterDto" resultMap="LandPostPO">
+        select * from LandPost where submitTime &lt; #{submitTime}
+        <if test="adInfo != null and adInfo !=''">
+            and adInfo like concat('%', #{adInfo}, '%')
+        </if>
+        <if test="landType != null and landType !=''">
+            and landType like concat(#{landType}, '%')
+        </if>
+        <if test="transferType != null and transferType !=''">
+            and transferType = #{transferType}
+        </if>
+        order by submitTime desc limit 10
+    </select>
+
 
 </mapper>

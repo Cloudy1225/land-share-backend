@@ -1,10 +1,9 @@
 package com.tencent.wxcloudrun.dao;
 
 
+import com.tencent.wxcloudrun.dto.LandFilterDto;
 import com.tencent.wxcloudrun.model.po.LandPostPO;
-import com.tencent.wxcloudrun.model.po.User;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -28,4 +27,7 @@ public interface LandPostDao {
 
     // 返回<=submitTime的10条土地信息，用于首页展示
     ArrayList<LandPostPO> select10BySubmitTime(LocalDateTime submitTime);
+
+    //
+    ArrayList<LandPostPO> selectByFilters(LandFilterDto landFilterDto);
 }

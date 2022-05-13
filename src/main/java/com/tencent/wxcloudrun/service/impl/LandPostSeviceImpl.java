@@ -1,6 +1,7 @@
 package com.tencent.wxcloudrun.service.impl;
 
 import com.tencent.wxcloudrun.dao.LandPostDao;
+import com.tencent.wxcloudrun.dto.LandFilterDto;
 import com.tencent.wxcloudrun.model.po.LandPostPO;
 import com.tencent.wxcloudrun.service.LandPostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +45,10 @@ public class LandPostSeviceImpl implements LandPostService {
     @Override
     public ArrayList<LandPostPO> get10LandPosts(LocalDateTime submitTime) {
         return landPostDao.select10BySubmitTime(submitTime);
+    }
+
+    @Override
+    public ArrayList<LandPostPO> getLandPostsByFilters(LandFilterDto landFilterDto) {
+        return landPostDao.selectByFilters(landFilterDto);
     }
 }

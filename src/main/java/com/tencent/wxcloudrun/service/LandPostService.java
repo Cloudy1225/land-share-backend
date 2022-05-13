@@ -1,5 +1,6 @@
 package com.tencent.wxcloudrun.service;
 
+import com.tencent.wxcloudrun.dto.LandFilterDto;
 import com.tencent.wxcloudrun.model.po.LandPostPO;
 
 import java.time.LocalDateTime;
@@ -21,4 +22,6 @@ public interface LandPostService {
 
     // 首页获取10条土地信息
     ArrayList<LandPostPO> get10LandPosts(LocalDateTime submitTime);
+
+    ArrayList<LandPostPO> getLandPostsByFilters(LandFilterDto landFilterDto);
 }

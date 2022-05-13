@@ -2,6 +2,7 @@ package com.tencent.wxcloudrun.controller;
 
 
 import com.tencent.wxcloudrun.config.Response;
+import com.tencent.wxcloudrun.dto.LandFilterDto;
 import com.tencent.wxcloudrun.model.po.LandPostPO;
 import com.tencent.wxcloudrun.model.vo.LandPostVO;
 import com.tencent.wxcloudrun.service.LandPostService;
@@ -88,6 +89,16 @@ public class LandPostController {
 
 
         ArrayList<LandPostPO> landPosts = landPostService.get10LandPosts(submitTime);
+
+        return Response.buildSuccess("土地发布获取成功", landPosts);
+    }
+
+    //
+    @PostMapping("/getLandPosts")
+    public Response getLandPosts(@RequestBody LandFilterDto landFilterDto){
+        logger.info("/landPost/getLandPosts post request, 目的：按筛选条件获取10条土地发布");
+
+        ArrayList<LandPostPO> landPosts = landPostService.getLandPostsByFilters(landFilterDto);
 
         return Response.buildSuccess("土地发布获取成功", landPosts);
     }
