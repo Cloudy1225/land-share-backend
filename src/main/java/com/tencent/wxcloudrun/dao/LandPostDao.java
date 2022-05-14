@@ -28,6 +28,9 @@ public interface LandPostDao {
     // 返回<=submitTime的10条土地信息，用于首页展示
     ArrayList<LandPostPO> select10BySubmitTime(LocalDateTime submitTime);
 
-    //
+    // 通过筛选条件查询土地
     ArrayList<LandPostPO> selectByFilters(LandFilterDto landFilterDto);
+
+    // 通过lid查询土地
+    ArrayList<LandPostPO> selectByLids(ArrayList<Integer> lids);
 }

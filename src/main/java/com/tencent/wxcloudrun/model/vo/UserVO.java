@@ -34,10 +34,6 @@ public class UserVO {
      */
     private String idnumber;
 
-    /**
-     * 我的收藏
-     */
-    // private String collection;
 
     /**
      * 用户身份

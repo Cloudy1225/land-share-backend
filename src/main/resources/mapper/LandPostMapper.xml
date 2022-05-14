@@ -70,5 +70,14 @@
         order by submitTime desc limit 10
     </select>
 
+    <select id = "selectByLids" parameterType="java.util.ArrayList" resultMap="LandPostPO">
+        SELECT *
+        FROM LandPost
+        WHERE lid in
+        <foreach collection="list" index="index" item="curLid"
+                 open="(" separator="," close=")">
+            #{curLid}
+        </foreach>
+    </select>
 
 </mapper>

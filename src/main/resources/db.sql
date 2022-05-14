@@ -12,7 +12,6 @@ CREATE TABLE `UserInformation` (
     `telenumber` char(11) NULL,
     `username` varchar(9) NULL, # 真实姓名
     `idnumber` char(18) NULL, # 身份证号
-    `collection` varchar(10) NULL, # 我的收藏
     `role` char(1) NOT NULL DEFAULT '1', # 用户权限
     PRIMARY KEY (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8; # InnoDB支持外键等
@@ -53,3 +52,11 @@ CREATE TABLE Article (
       PRIMARY KEY (aid)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE Collection (
+    cid int(7) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT COMMENT '收藏id',
+    openid varchar(100) NOT NULL COMMENT '用户openid',
+    lid int UNSIGNED ZEROFILL NOT NULL COMMENT '土地编号',
+    time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '收藏时间',
+    PRIMARY KEY (cid),
+    FOREIGN KEY(lid) REFERENCES LandPost(lid)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
