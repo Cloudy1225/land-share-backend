@@ -53,6 +53,9 @@ public class CollectionServiceImpl implements CollectionService {
     public CollectionVO getMyCollection(String openid) {
         CollectionVO collectionVO = new CollectionVO(openid, null);
         ArrayList<Integer> lids =  collectionDao.selectLidsByOpenid(openid);
+        if(lids.size() == 0){
+            return collectionVO;
+        }
 
         ArrayList<LandPostPO> myCollection= landPostDao.selectByLids(lids);
 

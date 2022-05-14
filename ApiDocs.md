@@ -799,6 +799,19 @@ header
 	"code": "00000",
 	"msg": "我的收藏获取成功",
 	"result": {
+		"openid": "yxb",
+		"myCollection": null
+	}
+}
+```
+
+
+
+```json
+{
+	"code": "00000",
+	"msg": "我的收藏获取成功",
+	"result": {
 		"openid": "lyh",
 		"myCollection": [
 			{
