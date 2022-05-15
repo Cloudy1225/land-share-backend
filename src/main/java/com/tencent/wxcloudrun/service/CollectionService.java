@@ -2,10 +2,8 @@ package com.tencent.wxcloudrun.service;
 
 import com.tencent.wxcloudrun.dto.CollectionDto;
 import com.tencent.wxcloudrun.model.po.CollectionPO;
-import com.tencent.wxcloudrun.model.po.LandPostPO;
 import com.tencent.wxcloudrun.model.vo.CollectionVO;
 
-import java.util.ArrayList;
 
 
 public interface CollectionService {

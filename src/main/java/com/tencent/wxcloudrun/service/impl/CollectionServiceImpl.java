@@ -5,16 +5,14 @@ import com.tencent.wxcloudrun.dao.CollectionDao;
 import com.tencent.wxcloudrun.dao.LandPostDao;
 import com.tencent.wxcloudrun.dto.CollectionDto;
 import com.tencent.wxcloudrun.model.po.CollectionPO;
-import com.tencent.wxcloudrun.model.po.LandPostPO;
 import com.tencent.wxcloudrun.model.vo.CollectionVO;
 import com.tencent.wxcloudrun.model.vo.LandPostVO;
 import com.tencent.wxcloudrun.service.CollectionService;
+import com.tencent.wxcloudrun.service.LandPostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 @Service
 public class CollectionServiceImpl implements CollectionService {
@@ -52,19 +50,20 @@ public class CollectionServiceImpl implements CollectionService {
     @Override
     public CollectionVO getMyCollection(String openid) {
         CollectionVO collectionVO = new CollectionVO(openid, null);
-        ArrayList<Integer> lids =  collectionDao.selectLidsByOpenid(openid);
-        if(lids.size() == 0){
+        ArrayList<Integer> lids = collectionDao.selectLidsByOpenid(openid);
+        if (lids.size() == 0) {
             return collectionVO;
         }
 
-        ArrayList<LandPostPO> myCollection= landPostDao.selectByLids(lids);
+        LandPostService landPostService = new LandPostSeviceImpl(landPostDao);
+        ArrayList<LandPostVO> myCollection = landPostService.getLandPostsByLids(lids);
 
         // 按收藏时间排序
-        ArrayList<LandPostPO> sortedMyCollection = new ArrayList<>();
-        for (Integer lid: lids){
-            for (LandPostPO landPostPO: myCollection){
-                if(lid.equals(landPostPO.getLid())){
-                    sortedMyCollection.add(landPostPO);
+        ArrayList<LandPostVO> sortedMyCollection = new ArrayList<>();
+        for (Integer lid : lids) {
+            for (LandPostVO landPostVO : myCollection) {
+                if (lid.equals(landPostVO.getLid())) {
+                    sortedMyCollection.add(landPostVO);
                 }
             }
         }
@@ -72,4 +71,5 @@ public class CollectionServiceImpl implements CollectionService {
         collectionVO.setMyCollection(sortedMyCollection);
         return collectionVO;
     }
+
 }

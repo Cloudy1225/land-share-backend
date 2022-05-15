@@ -31,11 +31,19 @@ public class LandPostVO {
 
     private Double latitude;
 
-    private String adInfo;
+    private String adInfo; // eg: "江苏省/南京市/玄武区"
+    private String district; // eg: "江苏省南京市玄武区"
+
+    /**
+     * district+area+'亩'+landType+transferType
+     */
+    private String title;
+
 
     private String description;
 
     private String pictureFileID;
+    private String defaultPicture;
 
     private String videoFileID;
 

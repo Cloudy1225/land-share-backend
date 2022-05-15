@@ -50,7 +50,7 @@ public class LandPostController {
     public Response getMyLandPosts(@RequestHeader("X-WX-OPENID") String openid){
         logger.info("/landPost/getMyLandPosts get request, 目的：获取我的土地发布，用户openid: {}", openid);
 
-        ArrayList<LandPostPO> myLandPosts = landPostService.getMyLandPosts(openid);
+        ArrayList<LandPostVO> myLandPosts = landPostService.getMyLandPosts(openid);
         return Response.buildSuccess("我的土地发布获取成功", myLandPosts);
     }
 
@@ -88,7 +88,7 @@ public class LandPostController {
         logger.info("/landPost/getLandPosts get request, 目的：获取10条土地发布");
 
 
-        ArrayList<LandPostPO> landPosts = landPostService.get10LandPosts(submitTime);
+        ArrayList<LandPostVO> landPosts = landPostService.get10LandPosts(submitTime);
 
         return Response.buildSuccess("土地发布获取成功", landPosts);
     }
@@ -98,7 +98,7 @@ public class LandPostController {
     public Response getLandPosts(@RequestBody LandFilterDto landFilterDto){
         logger.info("/landPost/getLandPosts post request, 目的：按筛选条件获取10条土地发布");
 
-        ArrayList<LandPostPO> landPosts = landPostService.getLandPostsByFilters(landFilterDto);
+        ArrayList<LandPostVO> landPosts = landPostService.getLandPostsByFilters(landFilterDto);
 
         return Response.buildSuccess("土地发布获取成功", landPosts);
     }
