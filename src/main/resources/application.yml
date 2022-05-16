@@ -11,9 +11,9 @@ spring:
 #    password: ${MySQL_PASSWORD}
 
     # 本地数据库
-    url: jdbc:mysql://127.0.0.1:3306/land-share-test
+    url: jdbc:mysql://127.0.0.1:3307/land-share-test
     username: root
-    password: ????????
+    password: 20011224l
 
     # 微信云托管中的数据库，除非提交部署时代码，最好不要使用
 #    url: jdbc:mysql://10.0.224.13:3306/land-share-test
