@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tencent.wxcloudrun.dao.LandRequireDao">
+
+
+    <resultMap id="LandRequirePO" type="com.tencent.wxcloudrun.model.po.LandRequirePO">
+        <id property="lrid" column="lrid" />
+        <!-- 定义普通属性 -->
+        <result property="landType" column="landType" />
+        <result property="transferType" column="transferType" />
+        <result property="area" column="area" />
+        <result property="transferTime" column="transferTime" />
+        <result property="price" column="price" />
+        <result property="address" column="address" />
+        <result property="longtitude" column="longtitude" />
+        <result property="latitude" column="latitude" />
+        <result property="description" column="description" />
+        <result property="telenumber" column="telenumber" />
+        <result property="openid" column="openid" />
+        <result property="adInfo" column="adInfo" />
+        <result property="submitTime" column="submitTime" />
+    </resultMap>
+
+    <insert id = "insertLandRequire" parameterType="com.tencent.wxcloudrun.model.po.LandRequirePO">
+        insert into LandRequire(landType, transferType, area, transferTime, price, address, longtitude, latitude, adInfo, description, telenumber, openid)
+        values (#{landType}, #{transferType}, #{area}, #{transferTime}, #{price}, #{address}, #{longtitude}, #{latitude}, #{adInfo}, #{description}, #{telenumber}, #{openid})
+    </insert>
+
+
+    <update id="updateLandRequire">
+        UPDATE LandRequire
+        SET landType=#{landType}, transferType=#{transferType}, area=#{area}, transferTime=#{transferTime}, price=#{price}, address=#{address}, longtitude=#{longtitude}, latitude=#{latitude}, adInfo=#{adInfo}, description=#{description}, telenumber=#{telenumber}
+        WHERE lrid=#{lrid}
+    </update>
+    <delete id="deleteLandRequire">
+        DELETE
+        FROM LandRequire
+        WHERE lrid=#{lrid}
+    </delete>
+    <select id="selectByOpenid" resultType="com.tencent.wxcloudrun.model.po.LandRequirePO">
+        select * from LandRequire where openid = #{openid} order by submitTime desc
+    </select>
+    <select id="selectByFilters" resultType="com.tencent.wxcloudrun.model.po.LandRequirePO">
+        select * from LandRequire where submitTime &lt; #{submitTime}
+        <if test="adInfo != null and adInfo !=''">
+            and adInfo like concat('%', #{adInfo}, '%')
+        </if>
+        <if test="landType != null and landType !=''">
+            and landType like concat(#{landType}, '%')
+        </if>
+        <if test="transferType != null and transferType !=''">
+            and transferType = #{transferType}
+        </if>
+        order by submitTime desc limit 10
+
+    </select>
+    <select id="selectByLids" resultType="com.tencent.wxcloudrun.model.po.LandRequirePO">
+        SELECT *
+        FROM LandRequire
+        WHERE lrid in
+        <foreach collection="list" index="index" item="curLrid"
+                 open="(" separator="," close=")">
+            #{curLrid}
+        </foreach>
+    </select>
+    <select id="select10BySubmitTime" resultType="com.tencent.wxcloudrun.model.po.LandRequirePO">
+        select * from LandRequire where submitTime &lt; #{submitTime} order by submitTime desc limit 10
+    </select>
+
+
+</mapper>
