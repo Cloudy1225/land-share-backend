@@ -58,13 +58,13 @@
 
     <select id = "selectByFilters" parameterType="com.tencent.wxcloudrun.dto.LandFilterDto" resultMap="LandPostPO">
         select * from LandPost where submitTime &lt; #{submitTime}
-        <if test="adInfo != null and adInfo !=''">
+        <if test='adInfo != null and adInfo !=""'>
             and adInfo like concat('%', #{adInfo}, '%')
         </if>
-        <if test="landType != null and landType !=''">
+        <if test='landType != null and landType !=""'>
             and landType like concat(#{landType}, '%')
         </if>
-        <if test="transferType != null and transferType !=''">
+        <if test='transferType != null and transferType !=""'>
             and transferType = #{transferType}
         </if>
         order by submitTime desc limit 10
@@ -73,11 +73,105 @@
     <select id = "selectByLids" parameterType="java.util.ArrayList" resultMap="LandPostPO">
         SELECT *
         FROM LandPost
-        WHERE lid in
-        <foreach collection="list" index="index" item="curLid"
-                 open="(" separator="," close=")">
-            #{curLid}
-        </foreach>
+        WHERE
+          <choose>
+              <when test="lids!=null and lids.size()>0">
+                  lid in
+                  <foreach collection="lids" index="index" item="curLid"
+                           open="(" separator="," close=")">
+                      ${curLid}
+                  </foreach>
+              </when>
+              <otherwise>
+                  false
+              </otherwise>
+          </choose>
+    </select>
+
+    <select id = "selectBySearch" parameterType="com.tencent.wxcloudrun.dto.LandSearchDto" resultMap="LandPostPO">
+        SELECT *
+        FROM LandPost
+        WHERE false or
+        <trim prefix="(" suffix=")" prefixOverrides="and|or">
+            <if test="landSearchDto.adInfo != null and landSearchDto.adInfo.size()>0">
+                and
+                <foreach collection="landSearchDto.adInfo" index="index" item="item"
+                     open="(" separator="or" close=")">
+                    adInfo like concat('%', #{item}, '%')
+               </foreach>
+            </if>
+            <if test="landSearchDto.landType != null and landSearchDto.landType.size()>0">
+                and
+                <foreach collection="landSearchDto.landType" index="index" item="item"
+                     open="(" separator="or" close=")">
+                   landType like concat('%', #{item}, '%')
+               </foreach>
+            </if>
+            <if test="landSearchDto.transferType != null and landSearchDto.transferType.size()>0">
+                and
+                <foreach collection="landSearchDto.transferType" index="index" item="item"
+                         open="(" separator="or" close=")">
+                    transferType = #{item}
+                </foreach>
+            </if>
+            <if test="landSearchDto.submitTime != null and landSearchDto.submitTime.size()>0">
+                and
+                <foreach collection="landSearchDto.submitTime" index="index" item="item"
+                         open="(" separator="or" close=")">
+                    submitTime like concat(#{item}, '%')
+                </foreach>
+            </if>
+            <if test="landSearchDto.transferTime != null and landSearchDto.transferTime.size()>0">
+                and
+                <foreach collection="landSearchDto.transferTime" index="index" item="item"
+                         open="(" separator="or" close=")">
+                    transferTime = #{item}
+                </foreach>
+            </if>
+            <if test="landSearchDto.area != null and landSearchDto.area.size()>0">
+                or true
+<!--                <foreach collection="landSearchDto.area" index="index" item="item"-->
+<!--                         open="(" separator="or" close=")">-->
+<!--                    area = #{item}-->
+<!--                </foreach>-->
+            </if>
+            <if test="landSearchDto.price != null and landSearchDto.price.size()>0">
+                or true
+<!--                <foreach collection="landSearchDto.price" index="index" item="item"-->
+<!--                         open="(" separator="or" close=")">-->
+<!--                    price = #{item}-->
+<!--                </foreach>-->
+            </if>
+        </trim>
+        order by
+        <choose>
+            <when test="landSearchDto.area != null and landSearchDto.area.size()>0 and landSearchDto.price != null and landSearchDto.price.size()>0">
+             (abs(area-#{landSearchDto.area[0]})+(abs(price-#{landSearchDto.price[0]})/10000)),
+            </when>
+            <otherwise>
+             <if test="landSearchDto.area != null and landSearchDto.area.size()>0">
+                 abs(area-#{landSearchDto.area[0]}),
+             </if>
+             <if test="landSearchDto.price != null and landSearchDto.price.size()>0">
+                 abs(price-#{landSearchDto.price[0]}),
+             </if>
+            </otherwise>
+        </choose>
+        submitTime desc
+    </select>
+
+    <select id = "selectByRecommend" parameterType="com.tencent.wxcloudrun.dto.LandRecommendDto" resultMap="LandPostPO">
+        select * from LandPost where lid != #{lid}
+        <if test='adInfo != null and adInfo !=""'>
+            and adInfo like concat('%', #{adInfo}, '%')
+        </if>
+        <if test='landType != null and landType !=""'>
+            and landType like concat(#{landType}, '%')
+        </if>
+        <if test='transferType != null and transferType !=""'>
+            and transferType = #{transferType}
+        </if>
+        order by submitTime desc limit 10
     </select>
 
 </mapper>

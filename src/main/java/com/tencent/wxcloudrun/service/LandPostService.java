@@ -1,6 +1,7 @@
 package com.tencent.wxcloudrun.service;
 
 import com.tencent.wxcloudrun.dto.LandFilterDto;
+import com.tencent.wxcloudrun.dto.LandRecommendDto;
 import com.tencent.wxcloudrun.model.po.LandPostPO;
 import com.tencent.wxcloudrun.model.vo.LandPostVO;
 
@@ -29,4 +30,11 @@ public interface LandPostService {
 
     // 通过土地lid获取土地
     ArrayList<LandPostVO> getLandPostsByLids(ArrayList<Integer> lids);
+
+    /**
+     * 推荐土地
+     * @param landRecommendDto 已知土地信息
+     * @return 推荐土地列表
+     */
+    ArrayList<LandPostVO> recommendLandPosts(LandRecommendDto landRecommendDto);
 }

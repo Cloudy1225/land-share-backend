@@ -3,9 +3,11 @@ package com.tencent.wxcloudrun.controller;
 
 import com.tencent.wxcloudrun.config.Response;
 import com.tencent.wxcloudrun.dto.LandFilterDto;
+import com.tencent.wxcloudrun.dto.LandRecommendDto;
 import com.tencent.wxcloudrun.model.po.LandPostPO;
 import com.tencent.wxcloudrun.model.vo.LandPostVO;
 import com.tencent.wxcloudrun.service.LandPostService;
+import com.tencent.wxcloudrun.service.SearchService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -20,11 +22,13 @@ import java.util.ArrayList;
 @RequestMapping("/landPost")
 public class LandPostController {
     private final LandPostService landPostService;
+    private final SearchService searchService;
     private final Logger logger;
 
     @Autowired //自动注入Service对象
-    public LandPostController(LandPostService landPostService) {
+    public LandPostController(LandPostService landPostService, SearchService searchService) {
         this.landPostService = landPostService;
+        this.searchService = searchService;
         this.logger = LoggerFactory.getLogger(LandPostController.class);
     }
 
@@ -93,7 +97,7 @@ public class LandPostController {
         return Response.buildSuccess("土地发布获取成功", landPosts);
     }
 
-    //
+    // 按筛选条件获取10条土地发布
     @PostMapping("/getLandPosts")
     public Response getLandPosts(@RequestBody LandFilterDto landFilterDto){
         logger.info("/landPost/getLandPosts post request, 目的：按筛选条件获取10条土地发布");
@@ -103,6 +107,23 @@ public class LandPostController {
         return Response.buildSuccess("土地发布获取成功", landPosts);
     }
 
+    // 根据用户输入搜索土地
+    @PostMapping("/searchLandPosts")
+    public Response searchLandPosts(@RequestBody String input){
+        logger.info("/landPost/searchLandPosts post request, 目的：根据用户输入搜索土地");
 
+        ArrayList<LandPostVO> landPosts = searchService.searchLandPosts(input);
+
+        return Response.buildSuccess("搜索土地成功", landPosts);
+    }
+
+    @PostMapping("/recommendLandPosts")
+    public Response recommendLandPosts(@RequestBody LandRecommendDto landRecommendDto){
+        logger.info("/landPost/recommendLandPosts post request, 目的：推荐土地");
+
+        ArrayList<LandPostVO> landPosts = landPostService.recommendLandPosts(landRecommendDto);
+
+        return Response.buildSuccess("推荐土地成功", landPosts);
+    }
 }
 

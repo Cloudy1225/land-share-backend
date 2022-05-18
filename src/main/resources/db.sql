@@ -25,7 +25,7 @@ CREATE TABLE LandPost (
     landType varchar(15) NOT NULL COMMENT '土地类型',
     transferType varchar(6) NOT NULL COMMENT '流转方式',
     area double NOT NULL COMMENT '土地面积',
-    transferTime double NOT NULL COMMENT '流转时间',
+    transferTime double NOT NULL COMMENT '流转年限',
     price double NOT NULL COMMENT '流转单价',
     address varchar(30) NOT NULL COMMENT '土地位置',
     longtitude double NULL COMMENT '经度',
@@ -59,4 +59,22 @@ CREATE TABLE Collection (
     time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '收藏时间',
     PRIMARY KEY (cid),
     FOREIGN KEY(lid) REFERENCES LandPost(lid)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE LandRequire (
+    lrid int(7)  UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT COMMENT '土地需求id',
+    landType varchar(15) NOT NULL COMMENT '土地类型',
+    transferType varchar(6) NOT NULL COMMENT '流转方式',
+    area double NOT NULL COMMENT '土地面积',
+    transferTime double NOT NULL COMMENT '流转年限',
+    price double NOT NULL COMMENT '期望单价',
+    address varchar(30) NOT NULL COMMENT '需求位置',
+    longtitude double NULL COMMENT '经度',
+    latitude double NULL COMMENT '纬度',
+    adInfo varchar(50) NULL COMMENT '行政规划信息',
+    description varchar(1500) NULL COMMENT '需求描述',
+    telenumber char(11) NOT NULL COMMENT '联系电话',
+    openid varchar(100) NOT NULL COMMENT '发布者openid',
+    submitTime timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '发布时间',
+    PRIMARY KEY (lrid)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

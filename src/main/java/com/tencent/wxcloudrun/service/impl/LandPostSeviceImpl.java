@@ -2,6 +2,7 @@ package com.tencent.wxcloudrun.service.impl;
 
 import com.tencent.wxcloudrun.dao.LandPostDao;
 import com.tencent.wxcloudrun.dto.LandFilterDto;
+import com.tencent.wxcloudrun.dto.LandRecommendDto;
 import com.tencent.wxcloudrun.model.po.LandPostPO;
 import com.tencent.wxcloudrun.model.vo.LandPostVO;
 import com.tencent.wxcloudrun.service.LandPostService;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 
 
 @Service
-public class LandPostSeviceImpl implements LandPostService {
+public class LandPostSeviceImpl extends LandPostPOtoVO implements LandPostService {
 
     private final LandPostDao landPostDao;
 
@@ -23,49 +24,6 @@ public class LandPostSeviceImpl implements LandPostService {
         this.landPostDao = landPostDao; // 实例化DAO对象，以操作数据库
     }
 
-
-    private ArrayList<LandPostVO> poToVO(ArrayList<LandPostPO> pos){
-
-        ArrayList<LandPostVO> vos = new ArrayList<>();
-
-        String adInfo = null;
-        String district = null;
-        Double area = null;
-        String landType = null;
-        String transferType = null;
-        String title = null;
-        String pictureFileID = null;
-        String defaultPicture = null;
-        for (LandPostPO po : pos){
-            LandPostVO vo = new LandPostVO();
-            BeanUtils.copyProperties(po, vo);
-
-            adInfo = po.getAdInfo();
-            if(adInfo.equals("//")){
-                district = adInfo;
-            }else {
-                district = adInfo.replaceAll("/", "");
-            }
-
-            area = po.getArea();
-            landType = po.getLandType().replaceAll("/", "");
-            transferType = po.getTransferType();
-            title = (district + "约" + area.intValue() + "亩" + landType + transferType);
-
-            pictureFileID = po.getPictureFileID();
-            if(pictureFileID != null && !pictureFileID.equals("")){
-                defaultPicture = pictureFileID.split("\\|")[0];
-            }
-
-            vo.setDistrict(district);
-            vo.setTitle(title);
-            vo.setDefaultPicture(defaultPicture);
-
-            vos.add(vo);
-        }
-
-        return vos;
-    }
 
     @Override
     public int createLandPost(LandPostPO landPostPO) {
@@ -105,5 +63,17 @@ public class LandPostSeviceImpl implements LandPostService {
         ArrayList<LandPostPO> landPostPOS = landPostDao.selectByLids(lids);
         return this.poToVO(landPostPOS);
     }
+
+    @Override
+    public ArrayList<LandPostVO> recommendLandPosts(LandRecommendDto landRecommendDto) {
+        String adInfo = landRecommendDto.getAdInfo();
+        adInfo = adInfo.split("/")[1];
+        landRecommendDto.setAdInfo(adInfo);
+
+        ArrayList<LandPostPO> landPostPOS = landPostDao.selectByRecommend(landRecommendDto);
+
+        return this.poToVO(landPostPOS);
+    }
+
 
 }

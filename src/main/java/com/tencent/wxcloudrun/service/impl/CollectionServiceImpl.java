@@ -5,17 +5,17 @@ import com.tencent.wxcloudrun.dao.CollectionDao;
 import com.tencent.wxcloudrun.dao.LandPostDao;
 import com.tencent.wxcloudrun.dto.CollectionDto;
 import com.tencent.wxcloudrun.model.po.CollectionPO;
+import com.tencent.wxcloudrun.model.po.LandPostPO;
 import com.tencent.wxcloudrun.model.vo.CollectionVO;
 import com.tencent.wxcloudrun.model.vo.LandPostVO;
 import com.tencent.wxcloudrun.service.CollectionService;
-import com.tencent.wxcloudrun.service.LandPostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
 @Service
-public class CollectionServiceImpl implements CollectionService {
+public class CollectionServiceImpl extends LandPostPOtoVO implements CollectionService {
 
 
     private final CollectionDao collectionDao;
@@ -55,8 +55,8 @@ public class CollectionServiceImpl implements CollectionService {
             return collectionVO;
         }
 
-        LandPostService landPostService = new LandPostSeviceImpl(landPostDao);
-        ArrayList<LandPostVO> myCollection = landPostService.getLandPostsByLids(lids);
+        ArrayList<LandPostPO> landPostPOS = landPostDao.selectByLids(lids);
+        ArrayList<LandPostVO> myCollection = this.poToVO(landPostPOS);
 
         // 按收藏时间排序
         ArrayList<LandPostVO> sortedMyCollection = new ArrayList<>();

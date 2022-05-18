@@ -2,8 +2,11 @@ package com.tencent.wxcloudrun.dao;
 
 
 import com.tencent.wxcloudrun.dto.LandFilterDto;
+import com.tencent.wxcloudrun.dto.LandRecommendDto;
+import com.tencent.wxcloudrun.dto.LandSearchDto;
 import com.tencent.wxcloudrun.model.po.LandPostPO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -33,4 +36,11 @@ public interface LandPostDao {
 
     // 通过lid查询土地
     ArrayList<LandPostPO> selectByLids(ArrayList<Integer> lids);
+
+    // 根据用户搜索框输入查询土地
+    ArrayList<LandPostPO> selectBySearch(@Param("landSearchDto") LandSearchDto landSearchDto);
+
+    // 推荐土地
+    ArrayList<LandPostPO> selectByRecommend(LandRecommendDto landRecommendDto);
+
 }
