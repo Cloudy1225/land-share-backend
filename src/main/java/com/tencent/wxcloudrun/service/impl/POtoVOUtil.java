@@ -1,21 +1,16 @@
 package com.tencent.wxcloudrun.service.impl;
 
 import com.tencent.wxcloudrun.model.po.LandPostPO;
+import com.tencent.wxcloudrun.model.po.LandRequirePO;
 import com.tencent.wxcloudrun.model.vo.LandPostVO;
-import com.tencent.wxcloudrun.service.POtoVO;
+import com.tencent.wxcloudrun.model.vo.LandRequireVO;
 import org.springframework.beans.BeanUtils;
 
 import java.util.ArrayList;
 
-/**
- * 实现LandPost PO向VO的转化的抽象类
- *
- * @author Cloudy
- */
-public abstract class LandPostPOtoVO implements POtoVO<LandPostPO, LandPostVO> {
+public class POtoVOUtil {
 
-    @Override
-    public ArrayList<LandPostVO> poToVO(ArrayList<LandPostPO> pos) {
+    public static ArrayList<LandPostVO> landPostPOToVO(ArrayList<LandPostPO> pos) {
         ArrayList<LandPostVO> vos = new ArrayList<>();
 
         String address = null;
@@ -58,4 +53,41 @@ public abstract class LandPostPOtoVO implements POtoVO<LandPostPO, LandPostVO> {
 
         return vos;
     }
+
+
+    public static ArrayList<LandRequireVO> landRequirePOToVO(ArrayList<LandRequirePO> pos) {
+        ArrayList<LandRequireVO> vos = new ArrayList<>();
+
+        String address = null;
+        String adInfo = null;
+        String district = null;
+        Double area = null;
+        String landType = null;
+        String transferType = null;
+        String title = null;
+
+        for (LandRequirePO po : pos) {
+            LandRequireVO vo = new LandRequireVO();
+            BeanUtils.copyProperties(po, vo);
+            address = po.getAddress();
+            adInfo = po.getAdInfo();
+            if (adInfo.equals("//")) {
+                district = address;
+            } else {
+                district = adInfo.replaceAll("/", "");
+            }
+
+            area = po.getArea();
+            landType = po.getLandType().replaceAll("/", "");
+            transferType = po.getTransferType();
+            title = (district + "需要约" + area.intValue() + "亩" + landType + transferType);
+            vo.setDistrict(district);
+            vo.setTitle(title);
+            vos.add(vo);
+        }
+        return vos;
+    }
+
+
+
 }

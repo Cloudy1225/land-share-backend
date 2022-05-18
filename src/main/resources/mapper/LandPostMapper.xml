@@ -129,18 +129,39 @@
                 </foreach>
             </if>
             <if test="landSearchDto.area != null and landSearchDto.area.size()>0">
-                or true
-<!--                <foreach collection="landSearchDto.area" index="index" item="item"-->
-<!--                         open="(" separator="or" close=")">-->
-<!--                    area = #{item}-->
-<!--                </foreach>-->
+                and
+                <foreach collection="landSearchDto.area" index="index" item="item"
+                         open="(" separator="or" close=")">
+                  <choose>
+                      <when test="item lte 10">
+                          (area >= (#{item}-2) and area &lt;= (#{item}+2))
+                      </when>
+                      <when test="item lte 20">
+                          (area >= (#{item}-4) and area &lt;= (#{item}+4))
+                      </when>
+                      <when test="item lte 30">
+                          (area >= (#{item}-6) and area &lt;= (#{item}+6))
+                      </when>
+                      <when test="item lte 40">
+                          (area >= (#{item}-8) and area &lt;= (#{item}+8))
+                      </when>
+                      <when test="item lte 50">
+                          (area >= (#{item}-10) and area &lt;= (#{item}+10))
+                      </when>
+                      <otherwise>
+                          (area >= (#{item}-#{item}*0.2) and area &lt;= (#{item}+#{item}*0.2))
+                      </otherwise>
+                  </choose>
+                </foreach>
             </if>
             <if test="landSearchDto.price != null and landSearchDto.price.size()>0">
-                or true
-<!--                <foreach collection="landSearchDto.price" index="index" item="item"-->
-<!--                         open="(" separator="or" close=")">-->
-<!--                    price = #{item}-->
-<!--                </foreach>-->
+                and
+                <trim prefix="(" suffix=")" suffixOverrides="or">
+                    <foreach collection="landSearchDto.price" index="index" item="item"
+                             open="" separator=" " close="">
+                        (price >= (#{item}-#{item}*0.2) and price &lt;= (#{item}+#{item}*0.2)) or
+                    </foreach>
+                </trim>
             </if>
         </trim>
         order by

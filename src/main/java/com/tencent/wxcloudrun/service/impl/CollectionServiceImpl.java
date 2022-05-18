@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 
 @Service
-public class CollectionServiceImpl extends LandPostPOtoVO implements CollectionService {
+public class CollectionServiceImpl implements CollectionService {
 
 
     private final CollectionDao collectionDao;
@@ -56,7 +56,7 @@ public class CollectionServiceImpl extends LandPostPOtoVO implements CollectionS
         }
 
         ArrayList<LandPostPO> landPostPOS = landPostDao.selectByLids(lids);
-        ArrayList<LandPostVO> myCollection = this.poToVO(landPostPOS);
+        ArrayList<LandPostVO> myCollection = POtoVOUtil.landPostPOToVO(landPostPOS);
 
         // 按收藏时间排序
         ArrayList<LandPostVO> sortedMyCollection = new ArrayList<>();

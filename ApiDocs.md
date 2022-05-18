@@ -205,7 +205,7 @@ header
 
 
 
-### Land
+### LandPost
 
 #### ```POST /landPost/createLandPost```
 
@@ -389,8 +389,6 @@ body：注意**Content-Type为application/json**，而不是 multipart/form-data
 }
 ```
 
-
-
 ##### 响应
 
 ```json
@@ -466,8 +464,6 @@ body：注意**Content-Type为application/json**，而不是 multipart/form-data
 }
 ```
 
-
-
 ##### 响应
 
 ```json
@@ -497,6 +493,132 @@ body：注意**Content-Type为application/json**，而不是 multipart/form-data
 			"status": 0,
 			"openid": "ob7d15SV_90UROPT60-h-3C5yJOY",
 			"submitTime": "2022-05-09 00:19:57"
+		}
+	]
+}
+```
+
+
+
+#### ```Post /landPost/searchLandPosts```
+
+根据用户输入搜索土地
+
+##### 请求
+
+body：注意**Content-Type为application/json**，而不是 multipart/form-data
+
+```json
+{
+    "input": "南京耕地10亩"
+}
+```
+
+##### 响应
+
+```json
+{
+	"code": "00000",
+	"msg": "搜索土地成功",
+	"result": [
+		{
+			"lid": 30,
+			"landType": "耕地/盐碱地",
+			"transferType": "转让",
+			"area": 12,
+			"transferTime": 23,
+			"price": 34354,
+			"address": "江苏省南京市玄武区北京东路41号",
+			"longtitude": 118.796539,
+			"latitude": 32.058441,
+			"adInfo": "江苏省/南京市/玄武区",
+			"district": "江苏省南京市玄武区",
+			"title": "江苏省南京市玄武区约12亩耕地盐碱地转让",
+			"description": "23",
+			"pictureFileID": "cloud://prod-9grx0olg9c8cf232.7072-prod-9grx0olg9c8cf232-1311076540/landPost/land/GdDhcoDLTUKRcc6620abd86094c1357a5972c046beb7.png",
+			"defaultPicture": "cloud://prod-9grx0olg9c8cf232.7072-prod-9grx0olg9c8cf232-1311076540/landPost/land/GdDhcoDLTUKRcc6620abd86094c1357a5972c046beb7.png",
+			"videoFileID": null,
+			"warrantsFileID": "cloud://prod-9grx0olg9c8cf232.7072-prod-9grx0olg9c8cf232-1311076540/landPost/warrant/7Gq3I6RVQ6Od783a264169dcccea44b89d0efb02fbfb.png",
+			"telenumber": "18355442634",
+			"status": 0,
+			"openid": "ob7d15cPOmz6_y8WAViPMAslKS4g",
+			"submitTime": "2022-05-09 00:24:21"
+		}
+	]
+}
+```
+
+
+
+#### ```Post /landPost/recommendLandPosts```
+
+根据当前土地信息推荐其它土地，最多返回10条
+
+##### 请求
+
+body：注意**Content-Type为application/json**，而不是 multipart/form-data；一定要**携带当前土地lid**，用于排除自身
+
+```json
+{
+	"lid": 21,
+	"adInfo": "江苏省/南京市/玄武区",
+	"landType": "耕地",
+	"transferType": "合作"
+}
+```
+
+##### 响应
+
+```json
+{
+	"code": "00000",
+	"msg": "推荐土地成功",
+	"result": [
+		{
+			"lid": 42,
+			"landType": "耕地/荒地",
+			"transferType": "合作",
+			"area": 123,
+			"transferTime": 2,
+			"price": 23,
+			"address": "江苏省南京市玄武区北京东路41号",
+			"longtitude": 118.79647,
+			"latitude": 32.05838,
+			"adInfo": "江苏省/南京市/玄武区",
+			"district": "江苏省南京市玄武区",
+			"title": "江苏省南京市玄武区约123亩耕地荒地合作",
+			"description": "12",
+			"pictureFileID": "cloud://prod-9grx0olg9c8cf232.7072-prod-9grx0olg9c8cf232-1311076540/landPost/land/0Utzl46PXoJS48904236c7ef3ef249786aa2b23bdb2a.png|cloud://prod-9grx0olg9c8cf232.7072-prod-9grx0olg9c8cf232-1311076540/landPost/land/bOr4Rz7Bkk4ae7f34db74e7f75b44f4e7dbab48ff8dd.png",
+			"defaultPicture": "cloud://prod-9grx0olg9c8cf232.7072-prod-9grx0olg9c8cf232-1311076540/landPost/land/0Utzl46PXoJS48904236c7ef3ef249786aa2b23bdb2a.png",
+			"videoFileID": null,
+			"warrantsFileID": "cloud://prod-9grx0olg9c8cf232.7072-prod-9grx0olg9c8cf232-1311076540/landPost/warrant/c5wHmXSg8Wy8d35619257310f3b7343b93cc972fc798.png",
+			"telenumber": "18355442634",
+			"status": 0,
+			"openid": "ob7d15cPOmz6_y8WAViPMAslKS4g",
+			"submitTime": "2022-05-11 23:22:51"
+		},
+		{
+			"lid": 24,
+			"landType": "耕地/水浇地",
+			"transferType": "合作",
+			"area": 13,
+			"transferTime": 3,
+			"price": 1800,
+			"address": "江苏省南京市江宁区圣湖东路",
+			"longtitude": 119.049129,
+			"latitude": 32.077531,
+			"adInfo": "江苏省/南京市/江宁区",
+			"district": "江苏省南京市江宁区",
+			"title": "江苏省南京市江宁区约13亩耕地水浇地合作",
+			"description": "",
+			"pictureFileID": "",
+			"defaultPicture": "cloud://prod-9grx0olg9c8cf232.7072-prod-9grx0olg9c8cf232-1311076540/landPost/land/0Utzl46PXoJS48904236c7ef3ef249786aa2b23bdb2a.png",
+			"videoFileID": null,
+			"warrantsFileID": "cloud://prod-9grx0olg9c8cf232.7072-prod-9grx0olg9c8cf232-1311076540/landPost/warrant/LLVMdQEhfmXLc3bb2f863bb9415564d42ca39bc0e53a.webp",
+			"telenumber": "17356482705",
+			"status": 0,
+			"openid": "ob7d15SV_90UROPT60-h-3C5yJOY",
+			"submitTime": "2022-05-09 00:21:41"
 		}
 	]
 }
@@ -677,17 +799,19 @@ header无特殊要求
 
 
 
-/-----
-
-### Require 
+### LandRequire 
 
 ​	 important：**openid位于head中，且用“X-WX-OPENID”作为Key**
 
 ​	注：LandRequire service 与LandPOST service 请求方式一致，内容略有不同 
 
-#### 	POST  /landRequire/createLandRequire  
+
+
+#### 	```POST /landRequire/createLandRequire```  
 
 用户提交土地需求
+
+##### 请求
 
 ```json
 {  "lrid":42,
@@ -705,9 +829,9 @@ header无特殊要求
   }
 ```
 
-#### 	Return
+##### 	响应
 
-##### 		success
+**success**
 
 ```json
 {
@@ -717,7 +841,7 @@ header无特殊要求
 }
 ```
 
-##### 	   error
+**error**
 
 ```json
 {
@@ -727,7 +851,9 @@ header无特殊要求
 }
 ```
 
-#### GET      /landRequire/deleteLandRequire
+
+
+#### ```GET /landRequire/deleteLandRequire?```
 
 ​	GET方式：
 
@@ -735,9 +861,11 @@ header无特殊要求
 
 ​	删除lrid对应的土地需求
 
-#### Return 
+##### 请求
 
-##### success
+##### 响应
+
+**success**
 
 ```json
 {
@@ -747,7 +875,7 @@ header无特殊要求
 }
 ```
 
-##### error
+**error**
 
 ```json
 {
@@ -757,9 +885,39 @@ header无特殊要求
 }
 ```
 
-#### POST /landRequire/updateLandRequire
+
+
+#### ```Post /landRequires/searchLandRequires```
+
+根据用户输入搜索土地需求
+
+##### 请求
+
+body：注意**Content-Type为application/json**，而不是 multipart/form-data
+
+```json
+{
+    "input": "南京耕地10亩"
+}
+```
+
+##### 响应
+
+```json
+{
+	"code": "00000",
+	"msg": "搜索土地需求成功",
+	"result": []
+}
+```
+
+
+
+#### ```POST /landRequire/updateLandRequire```
 
 用户根据lrid更改已存储的土地需求信息
+
+##### 请求
 
 ```json
 {  "lrid":42,
@@ -777,7 +935,9 @@ header无特殊要求
   }
 ```
 
-##### success
+##### 响应
+
+**success**
 
 ```json
 {
@@ -787,7 +947,7 @@ header无特殊要求
 }
 ```
 
-##### error
+**error**
 
 ```json
 {  
@@ -801,15 +961,13 @@ header无特殊要求
 
 #### ```POST /landRequire/getLandRequires```
 
-（1）传json筛选条件
-
 返回 10 个土地信息，返回结果已经按时间排序
+
+##### （1）传json筛选条件
 
 ##### 请求
 
 body：注意**Content-Type为application/json**，而不是 multipart/form-data
-
-
 
 ```json
 {
@@ -820,7 +978,7 @@ body：注意**Content-Type为application/json**，而不是 multipart/form-data
 }
 ```
 
-##### return
+##### 响应
 
 ```json
 {
@@ -854,15 +1012,19 @@ body：注意**Content-Type为application/json**，而不是 multipart/form-data
 }
 ```
 
-#### ```POST /landRequire/getLandRequires```
 
-#### （2）按时间查找
+
+#### ```GET /landRequire/getLandRequires?```
+
+##### （2）按时间查找
+
+##### 请求
 
 请求url：`/article/getArticles?time={yyyy-mm-dd}`
 
-##### Return
+##### 响应
 
-同（1）
+与（1)相似
 
 
 

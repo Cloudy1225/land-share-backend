@@ -1,9 +1,12 @@
 package com.tencent.wxcloudrun.service.impl;
 
 import com.tencent.wxcloudrun.dao.LandPostDao;
+import com.tencent.wxcloudrun.dao.LandRequireDao;
 import com.tencent.wxcloudrun.dto.LandSearchDto;
 import com.tencent.wxcloudrun.model.po.LandPostPO;
+import com.tencent.wxcloudrun.model.po.LandRequirePO;
 import com.tencent.wxcloudrun.model.vo.LandPostVO;
+import com.tencent.wxcloudrun.model.vo.LandRequireVO;
 import com.tencent.wxcloudrun.service.SearchService;
 import com.tencent.wxcloudrun.tool.nlp.Nature;
 import com.tencent.wxcloudrun.tool.nlp.Tokenizer;
@@ -19,13 +22,15 @@ import java.util.HashMap;
  * @author Cloudy
  */
 @Service
-public class SearchServiceImpl extends LandPostPOtoVO implements SearchService {
+public class SearchServiceImpl implements SearchService {
 
     private final LandPostDao landPostDao;
+    private final LandRequireDao landRequireDao;
 
     @Autowired //自动注入Dao对象
-    public SearchServiceImpl(LandPostDao landPostDao){
+    public SearchServiceImpl(LandPostDao landPostDao, LandRequireDao landRequireDao){
         this.landPostDao = landPostDao; // 实例化DAO对象，以操作数据库
+        this.landRequireDao = landRequireDao;
     }
 
     @Override
@@ -34,7 +39,16 @@ public class SearchServiceImpl extends LandPostPOtoVO implements SearchService {
 //        System.out.println(landSearchDto);
         ArrayList<LandPostPO> landPostPOS = this.landPostDao.selectBySearch(landSearchDto);
 
-        return this.poToVO(landPostPOS);
+        return POtoVOUtil.landPostPOToVO(landPostPOS);
+    }
+
+    @Override
+    public ArrayList<LandRequireVO> searchLandRequires(String input) {
+        LandSearchDto landSearchDto = this.parseInput(input);
+//        System.out.println(landSearchDto);
+        ArrayList<LandRequirePO> landRequirePOS = this.landRequireDao.selectBySearch(landSearchDto);
+
+        return POtoVOUtil.landRequirePOToVO(landRequirePOS);
     }
 
     /**
@@ -54,7 +68,7 @@ public class SearchServiceImpl extends LandPostPOtoVO implements SearchService {
         // 使用分词器分词
         Tokenizer tokenizer = Tokenizer.getInstance();
         final HashMap<Nature, ArrayList<String>> rawRes = tokenizer.segment(input);
-//        System.out.println(rawRes);
+        System.out.println(rawRes);
 
         // 格式化分词结果
 

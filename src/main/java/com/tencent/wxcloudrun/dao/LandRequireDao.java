@@ -2,9 +2,10 @@ package com.tencent.wxcloudrun.dao;
 
 
 import com.tencent.wxcloudrun.dto.LandFilterDto;
-import com.tencent.wxcloudrun.model.po.LandPostPO;
+import com.tencent.wxcloudrun.dto.LandSearchDto;
 import com.tencent.wxcloudrun.model.po.LandRequirePO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -28,7 +29,6 @@ public interface LandRequireDao {
     ArrayList <LandRequirePO> selectByOpenid(String openid);
 
 
-
     // 通过筛选条件查询土地需求
     ArrayList <LandRequirePO> selectByFilters(LandFilterDto landFilterDto);
 
@@ -37,4 +37,7 @@ public interface LandRequireDao {
 
 
     ArrayList<LandRequirePO> select10BySubmitTime(LocalDateTime submitTime);
+
+    // 根据用户搜索框输入查询土地
+    ArrayList<LandRequirePO> selectBySearch(@Param("landSearchDto") LandSearchDto landSearchDto);
 }

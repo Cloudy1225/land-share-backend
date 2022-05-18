@@ -6,6 +6,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+    # 连接数据库的格式
 #    url: jdbc:mysql://${MYSQL_ADDRESS}/${MYSQL_DATABASE:springboot_demo}
 #    username: ${MYSQL_USERNAME}
 #    password: ${MySQL_PASSWORD}
@@ -13,13 +14,14 @@ spring:
     # 本地数据库
 #    url: jdbc:mysql://127.0.0.1:3306/land-share-test
 #    username: root
-#    password: lyh1225.,
+#    password: *******
 
+    # 微信云托管中的数据库 公网访问
     url: jdbc:mysql://sh-cynosdbmysql-grp-h1hy084y.sql.tencentcdb.com:26106/land-share-test
     username: root
     password: 3TkCdfWV
 
-    # 微信云托管中的数据库，除非提交部署时代码，最好不要使用
+    # 微信云托管中的数据库 内网访问 除非提交部署时代码，最好不要使用
 #    url: jdbc:mysql://10.0.224.13:3306/land-share-test
 #    username: root
 #    password: 3TkCdfWV

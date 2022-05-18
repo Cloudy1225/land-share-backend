@@ -6,7 +6,6 @@ import com.tencent.wxcloudrun.dto.LandRecommendDto;
 import com.tencent.wxcloudrun.model.po.LandPostPO;
 import com.tencent.wxcloudrun.model.vo.LandPostVO;
 import com.tencent.wxcloudrun.service.LandPostService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +14,7 @@ import java.util.ArrayList;
 
 
 @Service
-public class LandPostSeviceImpl extends LandPostPOtoVO implements LandPostService {
+public class LandPostSeviceImpl implements LandPostService {
 
     private final LandPostDao landPostDao;
 
@@ -33,7 +32,7 @@ public class LandPostSeviceImpl extends LandPostPOtoVO implements LandPostServic
     @Override
     public ArrayList<LandPostVO> getMyLandPosts(String openid) {
         ArrayList<LandPostPO> myLandPosts = landPostDao.selectByOpenid(openid);
-        return this.poToVO(myLandPosts);
+        return POtoVOUtil.landPostPOToVO(myLandPosts);
     }
 
     @Override
@@ -49,19 +48,19 @@ public class LandPostSeviceImpl extends LandPostPOtoVO implements LandPostServic
     @Override
     public ArrayList<LandPostVO> get10LandPosts(LocalDateTime submitTime) {
         ArrayList<LandPostPO> landPostPOS =  landPostDao.select10BySubmitTime(submitTime);
-        return this.poToVO(landPostPOS);
+        return POtoVOUtil.landPostPOToVO(landPostPOS);
     }
 
     @Override
     public ArrayList<LandPostVO> getLandPostsByFilters(LandFilterDto landFilterDto) {
         ArrayList<LandPostPO> landPostPOS = landPostDao.selectByFilters(landFilterDto);
-        return this.poToVO(landPostPOS);
+        return POtoVOUtil.landPostPOToVO(landPostPOS);
     }
 
     @Override
     public ArrayList<LandPostVO> getLandPostsByLids(ArrayList<Integer> lids) {
         ArrayList<LandPostPO> landPostPOS = landPostDao.selectByLids(lids);
-        return this.poToVO(landPostPOS);
+        return POtoVOUtil.landPostPOToVO(landPostPOS);
     }
 
     @Override
@@ -72,7 +71,7 @@ public class LandPostSeviceImpl extends LandPostPOtoVO implements LandPostServic
 
         ArrayList<LandPostPO> landPostPOS = landPostDao.selectByRecommend(landRecommendDto);
 
-        return this.poToVO(landPostPOS);
+        return POtoVOUtil.landPostPOToVO(landPostPOS);
     }
 
 

@@ -117,6 +117,7 @@ public class LandPostController {
         return Response.buildSuccess("搜索土地成功", landPosts);
     }
 
+    // 推荐相似土地
     @PostMapping("/recommendLandPosts")
     public Response recommendLandPosts(@RequestBody LandRecommendDto landRecommendDto){
         logger.info("/landPost/recommendLandPosts post request, 目的：推荐土地");
