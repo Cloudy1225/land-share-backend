@@ -677,6 +677,197 @@ header无特殊要求
 
 
 
+/-----
+
+### Require 
+
+​	 important：**openid位于head中，且用“X-WX-OPENID”作为Key**
+
+​	注：LandRequire service 与LandPOST service 请求方式一致，内容略有不同 
+
+#### 	POST  /landRequire/createLandRequire  
+
+用户提交土地需求
+
+```json
+{  "lrid":42,
+  "landType":"耕地/荒地",
+  "transferType":"合作",
+  "area":123,
+  "transferTime":2,
+  "price":23,
+  "longtitude":114.514,
+  "latitude":11.4514,
+  "address":"江苏省南京市玄武区北京东路41号",
+  "adInfo":"江苏省南京市玄武区","description":"12",
+  "telenumber":"18355442634",
+   "submitTime":"2022-05-11 23:22:51"
+  }
+```
+
+#### 	Return
+
+##### 		success
+
+```json
+{
+    "code": "00000",
+    "msg": "土地需求信息已上传",
+    "result": null
+}
+```
+
+##### 	   error
+
+```json
+{
+    "code": "10002",
+    "msg": "土地信息不完整",
+    "result": null
+}
+```
+
+#### GET      /landRequire/deleteLandRequire
+
+​	GET方式：
+
+​	`http:// your_own_url/landRequire/deleteLandRequire?lrid={todel}`
+
+​	删除lrid对应的土地需求
+
+#### Return 
+
+##### success
+
+```json
+{
+    "code": "00000",
+    "msg": "删除成功",
+    "result": null
+}
+```
+
+##### error
+
+```json
+{
+    "code": "00000",
+    "msg": "土地需求不存在",
+    "result": null
+}
+```
+
+#### POST /landRequire/updateLandRequire
+
+用户根据lrid更改已存储的土地需求信息
+
+```json
+{  "lrid":42,
+  "landType":"耕地/荒地",
+  "transferType":"合作",
+  "area":123,
+  "transferTime":2,
+  "price":23,
+  "longtitude":114.514,
+  "latitude":11.4514,
+  "address":"江苏省南京市玄武区北京东路41号",
+  "adInfo":"江苏省南京市玄武区","description":"12",
+  "telenumber":"18355442634",
+   "submitTime":"2022-05-11 23:22:51"
+  }
+```
+
+##### success
+
+```json
+{
+    "code": "00000",
+    "msg": "土地需求信息已更新",
+    "result": null
+}
+```
+
+##### error
+
+```json
+{  
+    "code": "10002",
+    "msg": "土地信息不完整",
+    "result": null
+  }
+```
+
+
+
+#### ```POST /landRequire/getLandRequires```
+
+（1）传json筛选条件
+
+返回 10 个土地信息，返回结果已经按时间排序
+
+##### 请求
+
+body：注意**Content-Type为application/json**，而不是 multipart/form-data
+
+
+
+```json
+{
+    "landType": "耕地/水田",
+    "transferType": "出租",
+    "adInfo": "南京市",
+  	"submitTime": "2022-05-09 23:34:06"
+}
+```
+
+##### return
+
+```json
+{
+	"code": "00000",
+	"msg": "土地发布获取成功",
+	"result": [
+		{
+			"lid": 21,
+			"landType": "耕地/水田",
+			"transferType": "出租",
+			"area": 70,
+			"transferTime": 2,
+			"price": 4000,
+			"address": "江苏省南京市江宁区陶杨路",
+			"longtitude": 118.771003,
+			"latitude": 31.768643,
+			"adInfo": "江苏省/南京市/江宁区",
+			"district": "江苏省南京市江宁区",
+			"title": "江苏省南京市江宁区约70亩耕地水田出租",
+			"description": "",
+			"pictureFileID": "",
+			"defaultPicture": null,
+			"videoFileID": null,
+			"warrantsFileID": "cloud://prod-9grx0olg9c8cf232.7072-prod-9grx0olg9c8cf232-1311076540/landPost/warrant/4rWUe9StMTvQ1e025ee592b89e038f3598d9adab1eb6.webp",
+			"telenumber": "17356482705",
+			"status": 0,
+			"openid": "ob7d15SV_90UROPT60-h-3C5yJOY",
+			"submitTime": "2022-05-09 00:19:57"
+		}
+	]
+}
+```
+
+#### ```POST /landRequire/getLandRequires```
+
+#### （2）按时间查找
+
+请求url：`/article/getArticles?time={yyyy-mm-dd}`
+
+##### Return
+
+同（1）
+
+
+
+
+
 ### Collection
 
 
@@ -853,6 +1044,14 @@ header
 	}
 }
 ```
+
+
+
+#### 
+
+​	
+
+
 
 
 
