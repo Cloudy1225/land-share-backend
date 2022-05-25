@@ -91,7 +91,7 @@
     <select id = "selectBySearch" parameterType="com.tencent.wxcloudrun.dto.LandSearchDto" resultMap="LandPostPO">
         SELECT *
         FROM LandPost
-        WHERE false or
+        WHERE false or <!-- 有个bug，landSearchDto不为空，否则多一个or -->
         <trim prefix="(" suffix=")" prefixOverrides="and|or">
             <if test="landSearchDto.adInfo != null and landSearchDto.adInfo.size()>0">
                 and
@@ -178,7 +178,7 @@
              </if>
             </otherwise>
         </choose>
-        submitTime desc
+        submitTime desc limit 30
     </select>
 
     <select id = "selectByRecommend" parameterType="com.tencent.wxcloudrun.dto.LandRecommendDto" resultMap="LandPostPO">

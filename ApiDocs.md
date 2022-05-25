@@ -1,8 +1,96 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [ApiDocs](#apidocs)
+  - [写在前面](#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2)
+  - [具体说明](#%E5%85%B7%E4%BD%93%E8%AF%B4%E6%98%8E)
+    - [User](#user)
+      - [```GET /my/loginOrRegister```](#get-myloginorregister)
+        - [请求](#%E8%AF%B7%E6%B1%82)
+        - [响应](#%E5%93%8D%E5%BA%94)
+        - [调用示例](#%E8%B0%83%E7%94%A8%E7%A4%BA%E4%BE%8B)
+      - [```GET /my/deleteUser```](#get-mydeleteuser)
+        - [请求](#%E8%AF%B7%E6%B1%82-1)
+        - [响应](#%E5%93%8D%E5%BA%94-1)
+      - [```POST /my/realName```](#post-myrealname)
+        - [请求](#%E8%AF%B7%E6%B1%82-2)
+        - [响应](#%E5%93%8D%E5%BA%94-2)
+      - [```GET /my/getUserInfo```](#get-mygetuserinfo)
+        - [请求](#%E8%AF%B7%E6%B1%82-3)
+        - [响应](#%E5%93%8D%E5%BA%94-3)
+    - [LandPost](#landpost)
+      - [```POST /landPost/createLandPost```](#post-landpostcreatelandpost)
+        - [请求](#%E8%AF%B7%E6%B1%82-4)
+        - [响应](#%E5%93%8D%E5%BA%94-4)
+      - [```GET /landPost/getMyLandPosts```](#get-landpostgetmylandposts)
+        - [请求](#%E8%AF%B7%E6%B1%82-5)
+        - [响应](#%E5%93%8D%E5%BA%94-5)
+      - [```POST /landPost/updateLandPost```](#post-landpostupdatelandpost)
+        - [请求](#%E8%AF%B7%E6%B1%82-6)
+        - [响应](#%E5%93%8D%E5%BA%94-6)
+      - [```GET /landPost/deleteLandPost?```](#get-landpostdeletelandpost)
+        - [请求](#%E8%AF%B7%E6%B1%82-7)
+        - [响应](#%E5%93%8D%E5%BA%94-7)
+      - [```POST /landPost/getLandPosts```](#post-landpostgetlandposts)
+        - [请求](#%E8%AF%B7%E6%B1%82-8)
+        - [响应](#%E5%93%8D%E5%BA%94-8)
+      - [```Post /landPost/searchLandPosts```](#post-landpostsearchlandposts)
+        - [请求](#%E8%AF%B7%E6%B1%82-9)
+        - [响应](#%E5%93%8D%E5%BA%94-9)
+      - [```Post /landPost/recommendLandPosts```](#post-landpostrecommendlandposts)
+        - [请求](#%E8%AF%B7%E6%B1%82-10)
+        - [响应](#%E5%93%8D%E5%BA%94-10)
+    - [Article](#article)
+      - [```POST /article/insertArticle```](#post-articleinsertarticle)
+        - [请求](#%E8%AF%B7%E6%B1%82-11)
+        - [响应](#%E5%93%8D%E5%BA%94-11)
+      - [```POST /article/updateArticle```](#post-articleupdatearticle)
+        - [请求](#%E8%AF%B7%E6%B1%82-12)
+        - [响应](#%E5%93%8D%E5%BA%94-12)
+      - [```GET /article/getArticles?```](#get-articlegetarticles)
+        - [请求](#%E8%AF%B7%E6%B1%82-13)
+        - [响应](#%E5%93%8D%E5%BA%94-13)
+    - [LandRequire](#landrequire)
+      - [```POST /landRequire/createLandRequire```](#post-landrequirecreatelandrequire)
+        - [请求](#%E8%AF%B7%E6%B1%82-14)
+        - [响应](#%E5%93%8D%E5%BA%94-14)
+      - [```GET /landRequire/deleteLandRequire?```](#get-landrequiredeletelandrequire)
+        - [请求](#%E8%AF%B7%E6%B1%82-15)
+        - [响应](#%E5%93%8D%E5%BA%94-15)
+      - [```Post /landRequires/searchLandRequires```](#post-landrequiressearchlandrequires)
+        - [请求](#%E8%AF%B7%E6%B1%82-16)
+        - [响应](#%E5%93%8D%E5%BA%94-16)
+      - [```POST /landRequire/updateLandRequire```](#post-landrequireupdatelandrequire)
+        - [请求](#%E8%AF%B7%E6%B1%82-17)
+        - [响应](#%E5%93%8D%E5%BA%94-17)
+      - [```POST /landRequire/getLandRequires```](#post-landrequiregetlandrequires)
+        - [（1）传json筛选条件](#1%E4%BC%A0json%E7%AD%9B%E9%80%89%E6%9D%A1%E4%BB%B6)
+        - [请求](#%E8%AF%B7%E6%B1%82-18)
+        - [响应](#%E5%93%8D%E5%BA%94-18)
+      - [```GET /landRequire/getLandRequires?```](#get-landrequiregetlandrequires)
+        - [（2）按时间查找](#2%E6%8C%89%E6%97%B6%E9%97%B4%E6%9F%A5%E6%89%BE)
+        - [请求](#%E8%AF%B7%E6%B1%82-19)
+        - [响应](#%E5%93%8D%E5%BA%94-19)
+    - [Collection](#collection)
+      - [```GET /collection/addMyCollection?```](#get-collectionaddmycollection)
+        - [请求](#%E8%AF%B7%E6%B1%82-20)
+        - [响应](#%E5%93%8D%E5%BA%94-20)
+      - [```GET /collection/isCollected?```](#get-collectioniscollected)
+        - [请求](#%E8%AF%B7%E6%B1%82-21)
+        - [响应](#%E5%93%8D%E5%BA%94-21)
+      - [```GET /collection/getMyCollection```](#get-collectiongetmycollection)
+        - [请求](#%E8%AF%B7%E6%B1%82-22)
+        - [响应](#%E5%93%8D%E5%BA%94-22)
+      - [```GET /collection/deleteMyCollection?```](#get-collectiondeletemycollection)
+        - [请求](#%E8%AF%B7%E6%B1%82-23)
+        - [响应](#%E5%93%8D%E5%BA%94-23)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # ApiDocs
 
 
-
-[TOC]
 
 ## 写在前面
 
@@ -1206,14 +1294,6 @@ header
 	}
 }
 ```
-
-
-
-#### 
-
-​	
-
-
 
 
 

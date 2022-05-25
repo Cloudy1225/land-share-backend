@@ -23,6 +23,9 @@ public class Tokenizer {
      */
     private Tokenizer() {
         this.dict = Dictionary.getInstance();
+//        if(dict!=null){
+//            System.out.println("22222获取词典成功");
+//        }
     }
 
     /**

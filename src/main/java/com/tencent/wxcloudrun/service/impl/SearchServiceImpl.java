@@ -36,6 +36,10 @@ public class SearchServiceImpl implements SearchService {
     @Override
     public ArrayList<LandPostVO> searchLandPosts(String input) {
         LandSearchDto landSearchDto = this.parseInput(input);
+        if(landSearchDto == null){
+            return null;
+        }
+
 //        System.out.println(landSearchDto);
         ArrayList<LandPostPO> landPostPOS = this.landPostDao.selectBySearch(landSearchDto);
 
@@ -67,8 +71,12 @@ public class SearchServiceImpl implements SearchService {
 
         // 使用分词器分词
         Tokenizer tokenizer = Tokenizer.getInstance();
+//        if(tokenizer!=null){
+//            System.out.println("33333分词器获取成功");
+//        }
         final HashMap<Nature, ArrayList<String>> rawRes = tokenizer.segment(input);
-        System.out.println(rawRes);
+//        System.out.println("AAAAA");
+//        System.out.println(rawRes);
 
         // 格式化分词结果
 
@@ -112,6 +120,11 @@ public class SearchServiceImpl implements SearchService {
 
         // 发布时间
         submitTime.addAll(rawRes.get(Nature.Date));
+
+        int size = adInfo.size()+landType.size()+transferType.size()+transferTime.size()+area.size()+price.size()+submitTime.size();
+        if(size == 0){
+            return null;
+        }
 
         return new LandSearchDto(adInfo, landType, transferType, transferTime, area, price, submitTime);
     }

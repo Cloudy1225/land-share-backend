@@ -2,8 +2,7 @@ package com.tencent.wxcloudrun.tool.nlp;
 
 /**
  * 命中一个模式串的处理方法
- *
- * @author Cloudy
+ * @param <V>
  */
 public interface Hit<V> {
     /**

@@ -1,9 +1,7 @@
 package com.tencent.wxcloudrun.tool.nlp;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.TreeMap;
 
 /**
@@ -48,8 +46,26 @@ public class Dictionary {
      * 词典初始化
      */
     private void init(){
-        String[] pathArray = new String[]{"data/PROVINCE.txt", "data/CITY.txt", "data/COUNTY.txt"};
+//        String[] pathArray = new String[]{"data/PROVINCE.txt", "data/CITY.txt", "data/COUNTY.txt"};
+        String[] pathArray = new String[]{
+                "static/dictionaries/PROVINCE.txt",
+                "static/dictionaries/CITY.txt",
+                "static/dictionaries/COUNTY.txt"
+        };
+//        System.out.println("11111装载词典");
         this.loadDictionary(pathArray);
+    }
+
+    private InputStreamReader resourceLoader (String path) throws IOException{
+
+        InputStream is = this.getClass().getClassLoader().getResourceAsStream(path);
+        if(is == null)
+            throw new IOException("路径填写错误");
+        else {
+//            System.out.println(is);
+            return new InputStreamReader(is, StandardCharsets.UTF_8);
+        }
+
     }
 
     /**
@@ -66,16 +82,28 @@ public class Dictionary {
                 int begin = path.lastIndexOf("/");
                 int end = path.lastIndexOf(".");
                 Nature nature = Nature.valueOf(path.substring(begin+1, end));
-                File file = new File(path);
                 String word; // 一行一个词
+//                try {
+//                    File file = new File(path);
+//                    FileReader fr = new FileReader(file);
+//                    BufferedReader bufr = new BufferedReader(fr);
+//                    while ((word = bufr.readLine())!= null){
+//                        this.dictMap.put(word, nature);
+//                    }
+//                    bufr.close();
+//                    fr.close();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
                 try {
-                    FileReader fr = new FileReader(file);
-                    BufferedReader bufr = new BufferedReader(fr);
+                    InputStreamReader isr = this.resourceLoader(path);
+                    BufferedReader bufr = new BufferedReader(isr);
                     while ((word = bufr.readLine())!= null){
+//                        System.out.println(word);
                         this.dictMap.put(word, nature);
                     }
                     bufr.close();
-                    fr.close();
+                    isr.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
