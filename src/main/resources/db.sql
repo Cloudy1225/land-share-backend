@@ -6,6 +6,7 @@ CREATE TABLE `Counters` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `UserInformation`;
 CREATE TABLE `UserInformation` (
     `uid` int(7)  UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, #我们自定义的用户唯一标识
     `openid` varchar(100) NOT NULL, # 小程序自动生成的唯一标识
@@ -16,10 +17,7 @@ CREATE TABLE `UserInformation` (
     PRIMARY KEY (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8; # InnoDB支持外键等
 
-ALTER TABLE `UserInformation` ALTER COLUMN `role` DROP DEFAULT ; # 如果你的用户信息表role的默认值为'1'就不需要执行下面两句
-
-ALTER TABLE `UserInformation` ALTER COLUMN `role` SET DEFAULT '1';
-
+DROP TABLE IF EXISTS LandPost;
 CREATE TABLE LandPost (
     lid int(7)  UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT COMMENT '土地发布id',
     landType varchar(15) NOT NULL COMMENT '土地类型',
@@ -42,6 +40,7 @@ CREATE TABLE LandPost (
     PRIMARY KEY (lid)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS Article;
 CREATE TABLE Article (
       aid int(7)  UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT COMMENT '文章id',
       title varchar(100) NOT NULL COMMENT '文章标题',
@@ -52,15 +51,17 @@ CREATE TABLE Article (
       PRIMARY KEY (aid)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS Collection;
 CREATE TABLE Collection (
     cid int(7) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT COMMENT '收藏id',
     openid varchar(100) NOT NULL COMMENT '用户openid',
     lid int UNSIGNED ZEROFILL NOT NULL COMMENT '土地编号',
     time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '收藏时间',
     PRIMARY KEY (cid),
-    FOREIGN KEY(lid) REFERENCES LandPost(lid)
+    FOREIGN KEY(lid) REFERENCES LandPost(lid) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS LandRequire;
 CREATE TABLE LandRequire (
     lrid int(7)  UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT COMMENT '土地需求id',
     landType varchar(15) NOT NULL COMMENT '土地类型',
@@ -78,3 +79,15 @@ CREATE TABLE LandRequire (
     submitTime timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '发布时间',
     PRIMARY KEY (lrid)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TRIGGER IF EXISTS TriggerWhenDeleteUser;
+# DELIMITER //
+CREATE TRIGGER TriggerWhenDeleteUser
+    AFTER DELETE ON UserInformation
+    FOR EACH ROW
+    BEGIN
+        DELETE FROM LandPost WHERE LandPost.openid=OLD.openid;
+        DELETE FROM Collection WHERE Collection.openid=OLD.openid;
+        DELETE FROM LandRequire WHERE LandRequire.openid=OLD.openid;
+    END;
+# DELIMITER ;
