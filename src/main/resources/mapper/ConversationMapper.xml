@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tencent.wxcloudrun.dao.C2C_Chat_Daos.ConversationDao">
+
+    <!-- resultMap最终还是要将结果映射到pojo上，type就是指定映射到哪一个pojo -->
+    <!-- id	当前命名空间中的一个唯一标识，用于标识一个结果映射。 -->
+    <resultMap id="ConversationPO" type="com.tencent.wxcloudrun.model.po.C2C_Chat_POs.ConversationPO">
+        <!-- 定义主键 ,非常重要。如果是多个字段,则定义多个id -->
+        <!-- property：主键在pojo中的属性名 -->
+        <!-- column：主键在数据库中的列名 -->
+        <id property="conversationID" column="conversationID" />
+
+        <!-- 定义普通属性 -->
+        <result property="openid1" column="openid1" />
+        <result property="openid2" column="openid2" />
+        <result property="unreadCount1" column="unreadCount1" />
+        <result property="unreadCount2" column="unreadCount2" />
+        <result property="isPinned1" column="isPinned1" />
+        <result property="isPinned2" column="isPinned2" />
+        <result property="isDeleted1" column="isDeleted1" />
+        <result property="isDeleted2" column="isDeleted2" />
+        <result property="lastMessageID" column="lastMessageID" />
+    </resultMap>
+
+    <!-- id 对应 Dao 中方法名，parameterType 对应 Dao 中参数类型 -->
+    <insert id="insertConversation" parameterType="com.tencent.wxcloudrun.model.po.C2C_Chat_POs.ConversationPO">
+        insert into Conversation(conversationID, openid1, openid2) values (#{conversationID}, #{openid1}, #{openid2})
+    </insert>
+
+    <select id="selectByID" parameterType="java.lang.String" resultMap="ConversationPO">
+        select * from Conversation where conversationID=#{conversationID}
+    </select>
+
+    <select id="selectByTwoOpenids" resultMap="ConversationPO">
+        select * from Conversation where (openid1=#{openid1} and openid2=#{openid2}) or (openid1=#{openid2} and openid2=#{openid1})
+    </select>
+
+    <select id = "selectByOpenid" parameterType="java.lang.String" resultMap="ConversationPO">
+        select * from Conversation where openid1=#{openid} or openid2=#{openid}
+    </select>
+
+    <update id = "updateIsDeleted">
+        <choose>
+            <when test="type == false">
+                update Conversation set isDeleted1=false, isDeleted2=false where conversationID=#{conversationID}
+            </when>
+            <otherwise>
+                update Conversation set isDeleted1=true where conversationID=#{conversationID} and openid1=#{openid};
+                update Conversation set isDeleted2=true where conversationID=#{conversationID} and openid2=#{openid};
+            </otherwise>
+        </choose>
+    </update>
+
+    <update id="updateIsPinned">
+        update Conversation set isPinned1=#{isPinned} where conversationID=#{conversationID} and openid1=#{openid};
+        update Conversation set isPinned2=#{isPinned} where conversationID=#{conversationID} and openid2=#{openid};
+    </update>
+
+    <update id="setUnreadCount0">
+        update Conversation set unreadCount1=0 where conversationID=#{conversationID} and openid1=#{openid};
+        update Conversation set unreadCount2=0 where conversationID=#{conversationID} and openid2=#{openid};
+    </update>
+</mapper>

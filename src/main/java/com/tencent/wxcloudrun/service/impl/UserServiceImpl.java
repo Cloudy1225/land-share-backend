@@ -2,7 +2,9 @@ package com.tencent.wxcloudrun.service.impl;
 
 
 import com.tencent.wxcloudrun.dao.UserDao;
+import com.tencent.wxcloudrun.exception.MyServiceException;
 import com.tencent.wxcloudrun.model.po.User;
+import com.tencent.wxcloudrun.model.vo.C2C_Chat_VOs.UserProfileVO;
 import com.tencent.wxcloudrun.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,5 +39,4 @@ public class UserServiceImpl implements UserService {
     public int realName(User user) {
         return userDao.updateUser(user);
     }
-
 }

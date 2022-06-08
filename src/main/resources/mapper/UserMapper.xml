@@ -21,8 +21,8 @@
 
     <!-- id 对应 Dao 中方法名，parameterType 对应 Dao 中参数类型 -->
     <insert id = "insertUser" parameterType="com.tencent.wxcloudrun.model.po.User">
-        insert into UserInformation(`openid`)
-        values (#{openid})
+        insert into UserInformation(openid, nickName, avatarUrl)
+        values (#{openid}, #{nickName}, #{avatarUrl})
     </insert>
 
     <select id = "selectByOpenid" parameterType="java.lang.String" resultMap="User">

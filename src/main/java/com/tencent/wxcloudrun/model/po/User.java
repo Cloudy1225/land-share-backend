@@ -20,6 +20,16 @@ public class User {
     private String openid;
 
     /**
+     * 用户昵称
+     */
+    private String nickName;
+
+    /**
+     * 用户头像URL
+     */
+    private String avatarUrl;
+
+    /**
      * 用户手机号
      */
     private String telenumber;

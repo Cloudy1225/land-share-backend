@@ -5,6 +5,7 @@ import com.tencent.wxcloudrun.config.ApiResponse;
 import com.tencent.wxcloudrun.config.Response;
 import com.tencent.wxcloudrun.exception.MyServiceException;
 import com.tencent.wxcloudrun.model.po.User;
+import com.tencent.wxcloudrun.model.vo.C2C_Chat_VOs.UserProfileVO;
 import com.tencent.wxcloudrun.model.vo.UserVO;
 import com.tencent.wxcloudrun.service.UserService;
 import org.slf4j.Logger;
@@ -30,13 +31,15 @@ public class UserController {
 
     /**
      * 登录或注册
+     * @param vo
      * @param openid
      * @return 用户角色
      */
-    @GetMapping("/loginOrRegister")
-    public Response userLoginOrRegister(@RequestHeader("X-WX-OPENID") String openid) {
+    @PostMapping("/loginOrRegister")
+    public Response userLoginOrRegister(@RequestBody UserProfileVO vo,  @RequestHeader("X-WX-OPENID") String openid) {
         logger.info("/my/loginOrRegister get request, 目的：登录或注册，用户openid: {}", openid);
 
+        System.out.println(vo);
         User user = userService.findByOpenid(openid);
         HashMap<String, String> roleAndTele = new HashMap<>();
         if(user != null){
@@ -56,6 +59,8 @@ public class UserController {
         BeanUtils.copyProperties(userVO, newUser);*/
         User newUser = new User();
         newUser.setOpenid(openid);
+        newUser.setAvatarUrl(vo.getAvatarUrl());
+        newUser.setNickName(vo.getNickName());
         userService.createUser(newUser);
         roleAndTele.put("role", "1");
         roleAndTele.put("telenumber", "");
