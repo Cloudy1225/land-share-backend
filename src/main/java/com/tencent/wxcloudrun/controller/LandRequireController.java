@@ -104,12 +104,12 @@ class LandRequireController {
 
     // 根据用户输入搜索土地
     @PostMapping("/searchLandRequires")
-    public Response searchLandPosts(@RequestBody String input){
+    public Response searchLandRequires(@RequestBody String input){
         logger.info("/landRequire/searchLandRequires post request, 目的：根据用户输入搜索土地需求");
 
-        ArrayList<LandPostVO> landPosts = searchService.searchLandPosts(input);
+        ArrayList<LandRequireVO> landRequires = searchService.searchLandRequires(input);
 
-        return Response.buildSuccess("搜索土地需求成功", landPosts);
+        return Response.buildSuccess("搜索土地需求成功", landRequires);
     }
 
 
